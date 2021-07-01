@@ -171,9 +171,12 @@
 (setq org-agenda-files (apply 'append
  (mapcar
    (lambda (directory)
-   (directory-files-recursively
-     directory org-agenda-file-regexp))
-     	 '("~/shared/" "~/work"))))
+  (directory-files-recursively
+    directory org-agenda-file-regexp))
+       '("~/shared/" "~/work"))))
+(setq calendar-latitude 51.107883)
+(setq calendar-longitude 17.038538)
+(setq calendar-location-name "Wrocław")
 
 (use-package org-super-agenda
 )

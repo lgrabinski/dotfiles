@@ -202,15 +202,18 @@
    #+END_SRC
 ** org-agenda
    #+BEGIN_SRC emacs-lisp
-          (setq org-agenda-include-diary t)
-          (setq org-log-done 'time)
-          (setq calendar-mark-holidays-flag t)
-          (setq org-agenda-files (apply 'append
-           (mapcar
-     			   (lambda (directory)
-     				 (directory-files-recursively
-     				   directory org-agenda-file-regexp))
-     			       '("~/shared/" "~/work"))))
+     (setq org-agenda-include-diary t)
+     (setq org-log-done 'time)
+     (setq calendar-mark-holidays-flag t)
+     (setq org-agenda-files (apply 'append
+      (mapcar
+        (lambda (directory)
+       (directory-files-recursively
+         directory org-agenda-file-regexp))
+            '("~/shared/" "~/work"))))
+     (setq calendar-latitude 51.107883)
+     (setq calendar-longitude 17.038538)
+     (setq calendar-location-name "Wrocław")
    #+END_SRC
    
 *** org-super-agenda
