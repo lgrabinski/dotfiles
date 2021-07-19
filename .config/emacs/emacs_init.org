@@ -50,7 +50,8 @@
     (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
     ;;(load-theme 'doom-palenight t)
-    (load-theme 'doom-badger t)
+    ;;(load-theme 'doom-badger t)
+    (load-theme 'doom-one t)
 
     (doom-themes-visual-bell-config))
 
@@ -219,6 +220,18 @@
 *** org-super-agenda
     #+BEGIN_SRC emacs-lisp
       (use-package org-super-agenda
+        :config
+        (org-super-agenda-mode)
+        (setq org-agenda-custom-commands
+          '(("z" "Super agenda view - work"
+             ((agenda "" ((org-agenda-span 'day)
+                         (org-super-agenda-groups
+                          '((:name "Today"
+                                   :time-grid t
+                                   :date today
+                                   :todo "TODAY"
+                                   :scheduled today
+                                   :order 1)))))))))
       )
     #+END_SRC
 ** Better bullets 
@@ -511,7 +524,6 @@
    (use-package org-ac
      :config
      (org-ac/config-default))
-
    #+END_SRC
 * Development
 ** Rust
@@ -523,6 +535,7 @@
      (setq indent-tabs-mode nil)
      )
    #+END_SRC
+** Python
 * Documentation
 ** rf-mode
    #+BEGIN_SRC emacs-lisp

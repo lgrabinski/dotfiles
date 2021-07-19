@@ -37,7 +37,8 @@
 (setq doom-themes-enable-bold t
     doom-themes-enable-italic t)
 ;;(load-theme 'doom-palenight t)
-(load-theme 'doom-badger t)
+;;(load-theme 'doom-badger t)
+(load-theme 'doom-one t)
 
 (doom-themes-visual-bell-config))
 
@@ -179,6 +180,18 @@
 (setq calendar-location-name "Wrocław")
 
 (use-package org-super-agenda
+  :config
+  (org-super-agenda-mode)
+  (setq org-agenda-custom-commands
+    '(("z" "Super agenda view - work"
+       ((agenda "" ((org-agenda-span 'day)
+                   (org-super-agenda-groups
+                    '((:name "Today"
+                             :time-grid t
+                             :date today
+                             :todo "TODAY"
+                             :scheduled today
+                             :order 1)))))))))
 )
 
 ;; org-superstart
