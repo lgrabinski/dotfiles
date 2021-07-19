@@ -1,0 +1,10 @@
+#!/bin/bash
+
+packages=$(pacman -Q | wc -l)
+packages_update=$(timeout 5 checkupdates | wc -l)
+
+echo "  $packages_update/$packages"
+
+case $BLOCK_BUTTON in
+	3) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac

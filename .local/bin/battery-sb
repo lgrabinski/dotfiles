@@ -1,0 +1,45 @@
+#!/bin/bash
+
+for battery in /sys/class/power_supply/BAT?*
+do
+	status=$(cat "$battery/status")
+	capacity=$(cat "$battery/capacity")
+  if [ $capacity -gt 0 ] && [ $capacity -le 10 ]
+  then
+      icon=""
+  fi
+
+  if [ $capacity -gt 11 ] && [ $capacity -le 40 ] 
+  then
+      icon=""
+  fi
+
+  if [ $capacity -gt 41 ] && [ $capacity -le 75 ]
+  then
+      icon=""
+  fi
+
+  if [[ $capacity -gt 76 && $capacity -le 90 ]]
+  then
+      icon=""
+  fi
+  
+  if [[ $capacity -gt 91 && $capacity -le 100 ]]
+  then
+      icon=""
+  fi
+
+  case "$(cat "$battery/status")" in
+      "Unknown") status="❓" ;;
+      "Charging") status="" ;;
+      "Discharging") status="🔋" ;;
+      "Not charging") status="🛑" ;;
+      "Full") status="♻" ;;
+  esac 
+  
+	printf "%s %s  %s%%\n" "$status" "$icon" "$capacity";
+done
+
+case $BLOCK_BUTTON in
+	3) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
