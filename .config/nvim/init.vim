@@ -27,6 +27,8 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'kristijanhusak/orgmode.nvim'
 
+Plug 'nekonako/xresources-nvim'
+
 call plug#end()
 
-colorscheme dracula
+colorscheme xresources

@@ -285,7 +285,13 @@
     (after-init . org-roam-mode)
   :custom
     (org-roam-directory "~/shared/roam")
+  :init
+    (setq org-roam-v2-ack t)
 )
+
+(with-eval-after-load 'org
+  (add-to-list 'org-modules 'org-habit t))
+(setq org-habit-show-all-today t)
 
 (use-package which-key
   :init (which-key-mode)
@@ -315,11 +321,13 @@
     ;;"b" '(:ignore t :which-key "buffers")
     "bb" '(counsel-switch-buffer :which-key "switch-buffer")
     ;;"bb" '(helm-buffers-list :which-key "switch-buffer")
-    "br" '(counsel-recentf :which-key "recent")
-    ;;"br" '(helm-recentf :which-key "recent")
+    "bn" '(next-buffer :which-key "next buffer")
+    "bp" '(previous-buffer :whick-key "previuos-buffer")
+    "bd" '(kill-buffer :whick-key "kill-buffer")
     "f" '(:ignore t: :which-key "files")
     "ff" '(counsel-find-file :which-key "find")
     ;;"ff" '(helm-find-files :which-key "find")
+    "fr" '(counsel-recentf :which-key "recent")
     "s" '(:ignore t: :which-key "search")
     "ss" '(swiper :whick-key "swiper")
     ;;"ss" '(helm-swoop :whick-key "swoop")
@@ -438,6 +446,11 @@
 (setq org-ditaa-jar-path
     (expand-file-name "c:/programs/ditaa0_9.jar"))
 ))
+
+(require 'mu4e)
+(setq mu4e-update-interval (* 10 60))
+(setq mu4e-get-mail-command "mbsync -a")
+(setq mu4e-mail-dir "~/.mail")
 
 (use-package command-log-mode)
 
