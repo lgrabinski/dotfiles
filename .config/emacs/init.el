@@ -312,6 +312,7 @@
     "a" '(:ignore t :which-key "applications")
     "ae" '(elfeed :which-key "elfeed")
     "ar" '(ranger :Which-key "ranger")
+    "am" '(mu4e :which-key "mu4e")
     "t" '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
     ;;"tt" '(load-theme :whick-key "choose theme")
