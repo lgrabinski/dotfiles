@@ -43,7 +43,8 @@
 (doom-themes-visual-bell-config))
 
 ;;(use-package nord-theme)
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+;;(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(add-to-list 'default-frame-alist '(alpha . 90))
 
 (use-package beacon
   :ensure t
@@ -285,13 +286,23 @@
     (after-init . org-roam-mode)
   :custom
     (org-roam-directory "~/shared/roam")
+    (org-roam-completition-everywhere t)
   :init
     (setq org-roam-v2-ack t)
+  :config
+    (org-roam-setup)
 )
+
+(use-package dash
+  :ensure t)
 
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
 (setq org-habit-show-all-today t)
+
+(use-package org-journal
+  :ensure t
+)
 
 (use-package which-key
   :init (which-key-mode)
@@ -329,6 +340,8 @@
     "ff" '(counsel-find-file :which-key "find")
     ;;"ff" '(helm-find-files :which-key "find")
     "fr" '(counsel-recentf :which-key "recent")
+    "m" '(:ignore t: :which-key "magit")
+    "ms" '(magit-status :which-key "status")
     "s" '(:ignore t: :which-key "search")
     "ss" '(swiper :whick-key "swiper")
     ;;"ss" '(helm-swoop :whick-key "swoop")
@@ -433,6 +446,9 @@
   (setq rust-format-on-save t)
   (setq indent-tabs-mode nil)
   )
+
+(use-package magit
+   :ensure t)
 
 (use-package rfc-mode
   :ensure t
