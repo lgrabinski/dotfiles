@@ -6,5 +6,5 @@ echo -e "  $memory RAM "
 
 case $BLOCK_BUTTON in
 	1) "$TERMINAL" -e htop ;;
-	3) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) notify-send "$0 config" && "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac

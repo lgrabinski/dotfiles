@@ -6,5 +6,5 @@ case $BLOCK_BUTTON in
 	1) notify-send "clock, button: $BLOCK_BUTTON" ;;
 	2) notify-send "clock, button: $BLOCK_BUTTON" ;;
 	#3) notify-send "clock, button: $BLOCK_BUTTON" ;;
-	3) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) notify-send "$0 config" && "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac

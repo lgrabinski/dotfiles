@@ -3,5 +3,5 @@
 echo -e " $USER"
 
 case $BLOCK_BUTTON in
-	3) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) notify-send "$0 config" && "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
