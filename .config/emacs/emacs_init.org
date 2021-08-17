@@ -107,6 +107,12 @@
 
    #+END_SRC
 
+** rainbow-mode
+   #+BEGIN_SRC emacs-lisp
+     (use-package rainbow-mode
+       :ensure t)
+   #+END_SRC
+
 * Incrementatl completion and selection narrowing
 ** Ivy and Counsel
    #+BEGIN_SRC emacs-lisp

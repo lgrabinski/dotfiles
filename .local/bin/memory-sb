@@ -5,6 +5,6 @@ memory=$(free -h | awk '/^Mem:|^Pamięć:/ {print $3 "/" $2}')
 echo -e "  $memory RAM "
 
 case $BLOCK_BUTTON in
-	1) "$TERMINAL" -e htop ;;
+	1) notify-send "Run htop" && "$TERMINAL" -e htop ;;
 	3) notify-send "$0 config" && "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac

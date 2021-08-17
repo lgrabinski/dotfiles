@@ -6,6 +6,6 @@ packages_update=$(timeout 5 checkupdates | wc -l)
 echo "  $packages_update/$packages"
 
 case $BLOCK_BUTTON in
-	1) "$TERMINAL" -e sudo pacman -Syu && notify-send "sudo pacman -Syu" ;;
+	1) notify-send "sudo pacman -Syu" && "$TERMINAL" -e sudo pacman -Syu ;;
 	3) notify-send "$0 config" && "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac

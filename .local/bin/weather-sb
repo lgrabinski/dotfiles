@@ -9,7 +9,7 @@ getweather() { curl -sf "wttr.in" > "${HOME}/.local/share/weatherreport" || exit
 case $BLOCK_BUTTON in
 	# 1) setsid -f "$TERMINAL" -e curl wttr.in > less -Srf ;;
   #1) "$TERMINAL" -e curl wttr.in | read -n 1 -s -r -p "Press" ;;
-  1) getweather && setsid -f "$TERMINAL" -e less -Srf "${HOME}/.local/share/weatherreport" ;;  
+  1) notify-send "Get weather report" && getweather && setsid -f "$TERMINAL" -e less -Srf "${HOME}/.local/share/weatherreport" ;;  
 	# 1) notify-send "weather" "$(curl -s wttr.in)" ;;
 	3) notify-send "$0 config" && "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
