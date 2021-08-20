@@ -333,6 +333,9 @@
     "o" '(:ignore t :which-key "org-mode")
     "oa" '(org-agenda :whick-key "org-agenda")
     "oc" '(org-capture :whick-key "capture")
+    "or" '(:ignore t :which-key "roam")
+    "orf" '(org-roam-node-find :which-key "find node")
+    "ori" '(org-roam-node-insert :which-key "insert node")
     ;;"b" '(:ignore t :which-key "buffers")
     "bb" '(counsel-switch-buffer :which-key "switch-buffer")
     ;;"bb" '(helm-buffers-list :which-key "switch-buffer")
@@ -343,8 +346,8 @@
     "ff" '(counsel-find-file :which-key "find")
     ;;"ff" '(helm-find-files :which-key "find")
     "fr" '(counsel-recentf :which-key "recent")
-    "m" '(:ignore t: :which-key "magit")
-    "ms" '(magit-status :which-key "status")
+    "g" '(:ignore t: :which-key "magit")
+    "gs" '(magit-status :which-key "status")
     "s" '(:ignore t: :which-key "search")
     "ss" '(swiper :whick-key "swiper")
     ;;"ss" '(helm-swoop :whick-key "swoop")
@@ -506,23 +509,3 @@
 
 (use-package xresources-theme
   :ensure t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-minibuffer-history-key "M-p")
- '(package-selected-packages
-   '(rainbow-mode xresources-theme which-key use-package unicode-fonts undo-fu rust-mode rfc-mode ranger page-break-lines org-tree-slide org-superstar org-super-agenda org-roam org-re-reveal org-journal org-download org-ac magit ivy-rich ivy-prescient helm-org-rifle general flycheck evil-org evil-goggles evil-collection emojify elfeed-org elfeed-dashboard doom-themes doom-modeline dired-single dashboard counsel command-log-mode beacon all-the-icons-ivy all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-goggles-change-face ((t (:inherit diff-removed))))
- '(evil-goggles-delete-face ((t (:inherit diff-removed))))
- '(evil-goggles-paste-face ((t (:inherit diff-added))))
- '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
- '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
- '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
- '(evil-goggles-yank-face ((t (:inherit diff-changed)))))
