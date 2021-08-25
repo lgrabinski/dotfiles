@@ -164,6 +164,13 @@
   :ensure t
 )
 
+(use-package deft
+  :ensure t
+  :config
+  (setq deft-directory "~/shared")
+  (setq deft-extensions '("org" "md"))
+)
+
 (use-package org
   :config
   (setq org-ellipsis " ▼")
@@ -204,8 +211,8 @@
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (org-babel-do-load-languages
-'org-babel-load-languages
-'((emacs-lisp . t)
+  'org-babel-load-languages
+  '((emacs-lisp . t)
   (python . t)
   (plantuml . t)
   (ditaa . t)
@@ -288,8 +295,11 @@
   :hook
     (after-init . org-roam-mode)
   :custom
-    (org-roam-directory "~/shared/roam")
+    (org-roam-directory "~/shared/org-roam")
     (org-roam-completition-everywhere t)
+    ;; wa for variable readings
+    ;;(add-to-list 'safe-local-variable-values
+    ;;        '(org-roam-directory . "."))
   :init
     (setq org-roam-v2-ack t)
   :config
@@ -350,6 +360,7 @@
     "gs" '(magit-status :which-key "status")
     "s" '(:ignore t: :which-key "search")
     "ss" '(swiper :whick-key "swiper")
+    "sd" '(deft :which-key "deft")
     ;;"ss" '(helm-swoop :whick-key "swoop")
     "w" '(:ignore t :which-key "windows")
     "w/" '(split-window-right :which-key "split-right")

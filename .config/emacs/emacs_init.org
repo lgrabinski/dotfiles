@@ -199,6 +199,15 @@
         :ensure t
       )
     #+END_SRC
+** Deft
+   #+BEGIN_SRC emacs-lisp
+     (use-package deft
+       :ensure t
+       :config
+       (setq deft-directory "~/shared")
+       (setq deft-extensions '("org" "md"))
+     )
+   #+END_SRC
 * Org-mode 
 ** Basic
    #+BEGIN_SRC emacs-lisp
@@ -252,17 +261,16 @@
    #+END_SRC
 ** org-babel
    #+BEGIN_SRC emacs-lisp
-     (org-babel-do-load-languages
+   (org-babel-do-load-languages
      'org-babel-load-languages
      '((emacs-lisp . t)
-       (python . t)
-       (plantuml . t)
-       (ditaa . t)
-       (latex . t)
-       (asymptote . t)
-       ))
-     (setq org-confirm-babel-evaluate nil)
-
+     (python . t)
+     (plantuml . t)
+     (ditaa . t)
+     (latex . t)
+     (asymptote . t)
+     ))
+   (setq org-confirm-babel-evaluate nil)
    #+END_SRC
 ** org-download
    #+BEGIN_SRC emacs-lisp
@@ -358,8 +366,11 @@
        :hook
          (after-init . org-roam-mode)
        :custom
-         (org-roam-directory "~/shared/roam")
+         (org-roam-directory "~/shared/org-roam")
          (org-roam-completition-everywhere t)
+         ;; wa for variable readings
+         ;;(add-to-list 'safe-local-variable-values
+         ;;        '(org-roam-directory . "."))
        :init
          (setq org-roam-v2-ack t)
        :config
@@ -432,6 +443,7 @@
          "gs" '(magit-status :which-key "status")
          "s" '(:ignore t: :which-key "search")
          "ss" '(swiper :whick-key "swiper")
+         "sd" '(deft :which-key "deft")
          ;;"ss" '(helm-swoop :whick-key "swoop")
          "w" '(:ignore t :which-key "windows")
          "w/" '(split-window-right :which-key "split-right")
