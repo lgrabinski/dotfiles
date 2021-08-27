@@ -165,6 +165,17 @@
   :config
   (ivy-prescient-mode 1))
 
+(use-package ivy-posframe
+  :ensure t
+  :config
+    (setq ivy-posframe-display-function-alist
+          '((swiper . ivy-posframe-display-at-point)
+            (complete-symbol . ivy-posframe-display-at-point)
+            (counsel-M-x . ivy-posframe-display-at-window-bottom-left)
+            (t . ivy-posframe-display)))
+    (ivy-posframe-mode 1)
+)
+
 ;;   (use-package helm
 ;;     :ensure t
 ;;     :bind

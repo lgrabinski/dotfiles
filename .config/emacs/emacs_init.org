@@ -196,6 +196,19 @@
       :config
       (ivy-prescient-mode 1))
     #+END_SRC
+*** ivy-posframe
+    #+BEGIN_SRC emacs-lisp
+      (use-package ivy-posframe
+        :ensure t
+        :config
+          (setq ivy-posframe-display-function-alist
+                '((swiper . ivy-posframe-display-at-point)
+                  (complete-symbol . ivy-posframe-display-at-point)
+                  (counsel-M-x . ivy-posframe-display-at-window-bottom-left)
+                  (t . ivy-posframe-display)))
+          (ivy-posframe-mode 1)
+      )
+    #+END_SRC
 ** Helm 
 *** Basic
     #+BEGIN_SRC emacs-lisp
