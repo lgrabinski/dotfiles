@@ -30,6 +30,13 @@ Plug 'kristijanhusak/orgmode.nvim'
 
 Plug 'nekonako/xresources-nvim'
 
+Plug 'glepnir/dashboard-nvim'
+
+Plug 'liuchengxu/vim-clap'
+
 call plug#end()
 
+
+" Defaul value is clap for dashboard
+let g:dashboard_default_executive = 'clap'
 colorscheme nord
