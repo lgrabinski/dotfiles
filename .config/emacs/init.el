@@ -28,8 +28,10 @@
 ;;     (load bootstrap-file nil 'nomessage))
 ;;
 ;;   (setq package-enable-at-startup nil)
-;;   (setq straight-use-package-by-default t)
+;;
 ;;   (straight-use-package 'use-package)
+;;   (setq package-enable-at-startup nil)
+;;   (setq straight-use-package-by-default nil)
 
 (setq inhibit-startup-message t)
 
@@ -50,6 +52,7 @@
    (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
 
 (use-package doom-themes
+:ensure t
 :config
 (setq doom-themes-enable-bold t
     doom-themes-enable-italic t)
@@ -109,6 +112,7 @@
   :ensure t)
 
 (use-package ivy 
+  :ensure t
   :diminish
   :bind (("C-s" . swiper)
        :map ivy-minibuffer-map
@@ -128,6 +132,7 @@
   (setq ivy-use-virtual-buffers t))
 
   (use-package ivy-rich
+    :ensure t
     :init
     (ivy-rich-mode 1)
     :after counsel
@@ -136,6 +141,7 @@
     (setq ivy-rich-project-root-cache-mode 1))
 
   (use-package counsel
+    :ensure t
     :bind (("M-b" . counsel-switch-buffer)
            ("M-x" . counsel-M-x)
            ("C-x C-f" . counsel-find-file)
@@ -147,6 +153,7 @@
     (counsel-mode 1))
 
     (use-package all-the-icons-ivy
+      :ensure t
       :init
       (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
       :config
@@ -200,6 +207,7 @@
 )
 
 (use-package org
+  :ensure nil
   :config
   (setq org-ellipsis " ▼")
   (setq org-hide-emphasis-markers t)
@@ -219,6 +227,7 @@
 (setq calendar-location-name "Wrocław")
 
 (use-package org-super-agenda
+  :ensure t
   :config
   (org-super-agenda-mode)
   (setq org-agenda-custom-commands
@@ -234,7 +243,8 @@
 )
 
 ;; org-superstart
-(use-package org-superstar)
+(use-package org-superstar
+  :ensure t)
 (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
@@ -269,19 +279,8 @@
 
 ;;(setq org-capture-templates)
 
-;; (use-package undo-tree
- ;;  :init
- ;;  (global-undo-tree-mode 1)
-;; )
-
-(use-package undo-fu
-  :config
-  ;;(global-undo-tree-mode -1)
-  ;;(define-key evil-normal-state-map "u" 'undo-fu-only-undo)
-  ;;(define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo)
- )
-
 (use-package evil
+:ensure t
 :init
 (setq evil-want-integration t)
 (setq evil-want-keybinding nil)
@@ -303,9 +302,23 @@
 (evil-set-initial-state 'dashboard-mode 'normal))
 
 (use-package evil-collection
+:ensure t
 :after evil
 :config
 (evil-collection-init))
+
+;; (use-package undo-tree
+ ;;  :init
+ ;;  (global-undo-tree-mode 1)
+;; )
+
+(use-package undo-fu
+  :ensure t
+  :config
+  ;;(global-undo-tree-mode -1)
+  ;;(define-key evil-normal-state-map "u" 'undo-fu-only-undo)
+  ;;(define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo)
+ )
 
 (use-package evil-org
   :ensure t
@@ -533,9 +546,11 @@
 (setq mu4e-get-mail-command "mbsync -a")
 (setq mu4e-mail-dir "~/.mail")
 
-(use-package command-log-mode)
+(use-package command-log-mode
+  :strony t)
 
-(use-package all-the-icons)
+(use-package all-the-icons
+  :ensure t)
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -554,8 +569,8 @@
                              (float-time
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
-					 
-					 
+
+
 ;; Make startup faster by reducing the frequency of garbage
 ;; collection.  The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -567,3 +582,26 @@
 
 (use-package xresources-theme
   :ensure t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-minibuffer-history-key "M-p")
+ '(package-selected-packages
+   '(xresources-theme doom-modeline rfc-mode magit rust-mode org-ac auto-complete flycheck ranger all-the-icons-dired dired-single elfeed-dashboard elfeed-org org-re-reveal org-tree-slide emojify unicode-fonts general which-key org-journal org-roam evil-org undo-fu evil-collection org-download org-superstar org-super-agenda deft helm-org-rifle ivy-prescient all-the-icons-ivy counsel ivy-rich ivy rainbow-mode dashboard page-break-lines evil-goggles beacon doom-themes use-package))
+ '(safe-local-variable-values
+   '((org-roam-db-location . "./org-roam.db")
+     (org-roam-directory . "."))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-goggles-change-face ((t (:inherit diff-removed))))
+ '(evil-goggles-delete-face ((t (:inherit diff-removed))))
+ '(evil-goggles-paste-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
+ '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
+ '(evil-goggles-yank-face ((t (:inherit diff-changed)))))

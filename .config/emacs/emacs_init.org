@@ -41,8 +41,10 @@
 ;;     (load bootstrap-file nil 'nomessage))
 ;;
 ;;   (setq package-enable-at-startup nil)
-;;   (setq straight-use-package-by-default t)
+;;
 ;;   (straight-use-package 'use-package)
+;;   (setq package-enable-at-startup nil)
+;;   (setq straight-use-package-by-default nil)
    #+END_SRC
 * UI - User Interface tweaks
   #+BEGIN_SRC emacs-lisp
@@ -65,6 +67,7 @@
        (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
 
     (use-package doom-themes
+    :ensure t
     :config
     (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
@@ -135,49 +138,53 @@
 * Incrementatl completion and selection narrowing
 ** Ivy and Counsel
    #+BEGIN_SRC emacs-lisp
-          (use-package ivy 
-            :diminish
-            :bind (("C-s" . swiper)
-                 :map ivy-minibuffer-map
-                 ("TAB" . ivy-alt-done)
-                 ("C-l" . ivy-alt-done)
-                 ("C-j" . ivy-next-line)
-                 ("C-k" . ivy-previous-line)
-                 :map ivy-switch-buffer-map
-                 ("C-k" . ivy-previous-line)
-                 ("C-l" . ivy-done)
-                 ("C-d" . ivy-switch-buffer-kill)
-                 :map ivy-reverse-i-search-map
-                 ("C-k" . ivy-previous-line)
-                 ("C-d" . ivy-reverse-i-search-kill))
-            :config
-            (ivy-mode 1)
-            (setq ivy-use-virtual-buffers t))
- 
-            (use-package ivy-rich
-              :init
-              (ivy-rich-mode 1)
-              :after counsel
-              :config
-              (setq ivy-rich-path-style 'abbred)
-              (setq ivy-rich-project-root-cache-mode 1))
- 
-            (use-package counsel
-              :bind (("M-b" . counsel-switch-buffer)
-                     ("M-x" . counsel-M-x)
-                     ("C-x C-f" . counsel-find-file)
-                     :map minibuffer-local-map
-                     ("C-r" . 'counsel-minibuffer-history))
-              :custom
-              (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-              :config
-              (counsel-mode 1))
- 
-              (use-package all-the-icons-ivy
-                :init
-                (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
-                :config
-                (setq all-the-icons-ivy-buffer-commands '()))
+     (use-package ivy 
+       :ensure t
+       :diminish
+       :bind (("C-s" . swiper)
+            :map ivy-minibuffer-map
+            ("TAB" . ivy-alt-done)
+            ("C-l" . ivy-alt-done)
+            ("C-j" . ivy-next-line)
+            ("C-k" . ivy-previous-line)
+            :map ivy-switch-buffer-map
+            ("C-k" . ivy-previous-line)
+            ("C-l" . ivy-done)
+            ("C-d" . ivy-switch-buffer-kill)
+            :map ivy-reverse-i-search-map
+            ("C-k" . ivy-previous-line)
+            ("C-d" . ivy-reverse-i-search-kill))
+       :config
+       (ivy-mode 1)
+       (setq ivy-use-virtual-buffers t))
+
+       (use-package ivy-rich
+         :ensure t
+         :init
+         (ivy-rich-mode 1)
+         :after counsel
+         :config
+         (setq ivy-rich-path-style 'abbred)
+         (setq ivy-rich-project-root-cache-mode 1))
+
+       (use-package counsel
+         :ensure t
+         :bind (("M-b" . counsel-switch-buffer)
+                ("M-x" . counsel-M-x)
+                ("C-x C-f" . counsel-find-file)
+                :map minibuffer-local-map
+                ("C-r" . 'counsel-minibuffer-history))
+         :custom
+         (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+         :config
+         (counsel-mode 1))
+
+         (use-package all-the-icons-ivy
+           :ensure t
+           :init
+           (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
+           :config
+           (setq all-the-icons-ivy-buffer-commands '()))
    #+END_SRC
 
 *** Better sorting with prescient.el
@@ -244,6 +251,7 @@
 ** Basic
    #+BEGIN_SRC emacs-lisp
      (use-package org
+       :ensure nil
        :config
        (setq org-ellipsis " ▼")
        (setq org-hide-emphasis-markers t)
@@ -268,6 +276,7 @@
 *** org-super-agenda
     #+BEGIN_SRC emacs-lisp
       (use-package org-super-agenda
+        :ensure t
         :config
         (org-super-agenda-mode)
         (setq org-agenda-custom-commands
@@ -285,10 +294,11 @@
 ** Better bullets 
    #+BEGIN_SRC emacs-lisp
 
-   ;; org-superstart
-   (use-package org-superstar)
-   (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
-   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+        ;; org-superstart
+        (use-package org-superstar
+          :ensure t)
+        (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
+        (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
    #+END_SRC
 ** org-babel
@@ -331,27 +341,10 @@
    ;;(setq org-capture-templates) 
    #+END_SRC
 ** evil-mode
-*** undo-tree
-    *Note* Need to undo-tree in evi-mode
-    Package not use as seems undo-tree is unassing causing errors on windows 10 run
-    #+BEGIN_SRC emacs-lisp
-     ;; (use-package undo-tree
-      ;;  :init
-      ;;  (global-undo-tree-mode 1)
-     ;; )
-    #+END_SRC
-*** undo-fu
-    #+BEGIN_SRC emacs-lisp
-      (use-package undo-fu
-        :config
-        ;;(global-undo-tree-mode -1)
-        ;;(define-key evil-normal-state-map "u" 'undo-fu-only-undo)
-        ;;(define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo)
-       )
-    #+END_SRC
 *** evil
      #+BEGIN_SRC emacs-lisp
-        (use-package evil
+       (use-package evil
+       :ensure t
        :init
        (setq evil-want-integration t)
        (setq evil-want-keybinding nil)
@@ -373,11 +366,31 @@
        (evil-set-initial-state 'dashboard-mode 'normal))
 
        (use-package evil-collection
+       :ensure t
        :after evil
        :config
        (evil-collection-init))
     #+END_SRC
 
+*** undo-tree
+    *Note* Need to undo-tree in evi-mode
+    Package not use as seems undo-tree is unassing causing errors on windows 10 run
+    #+BEGIN_SRC emacs-lisp
+     ;; (use-package undo-tree
+      ;;  :init
+      ;;  (global-undo-tree-mode 1)
+     ;; )
+    #+END_SRC
+*** undo-fu
+    #+BEGIN_SRC emacs-lisp
+      (use-package undo-fu
+        :ensure t
+        :config
+        ;;(global-undo-tree-mode -1)
+        ;;(define-key evil-normal-state-map "u" 'undo-fu-only-undo)
+        ;;(define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo)
+       )
+    #+END_SRC
 *** evil-org
     #+BEGIN_SRC emacs-lisp
       (use-package evil-org
@@ -677,37 +690,39 @@
 
 #+BEGIN_SRC emacs-lisp
 
-(use-package command-log-mode)
+    (use-package command-log-mode
+      :strony t)
 
-(use-package all-the-icons)
+    (use-package all-the-icons
+      :ensure t)
 
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 18)))
+    (use-package doom-modeline
+      :init (doom-modeline-mode 1)
+      :custom ((doom-modeline-height 18)))
 
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+    (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;;(use-package ox-reveal
-;;	:ensure t)
-;;(require 'ox-reveal)
+    ;;(use-package ox-reveal
+    ;;	:ensure t)
+    ;;(require 'ox-reveal)
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs ready in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (message "Emacs ready in %s with %d garbage collections."
+                         (format "%.2f seconds"
+                                 (float-time
+                                  (time-subtract after-init-time before-init-time)))
+                         gcs-done)))
 					 
 					 
-;; Make startup faster by reducing the frequency of garbage
-;; collection.  The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+    ;; Make startup faster by reducing the frequency of garbage
+    ;; collection.  The default is 800 kilobytes.  Measured in bytes.
+    (setq gc-cons-threshold (* 50 1000 1000))
 
-;; The rest of the init file.
+    ;; The rest of the init file.
 
-;; Make gc pauses faster by decreasing the threshold.
-(setq gc-cons-threshold (* 2 1000 1000))
+    ;; Make gc pauses faster by decreasing the threshold.
+    (setq gc-cons-threshold (* 2 1000 1000))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
