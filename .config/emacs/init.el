@@ -336,7 +336,7 @@
   :hook
     (after-init . org-roam-mode)
   :custom
-    (org-roam-directory "~/shared/org-roam")
+    (org-roam-directory "~/work/org-roam")
     (org-roam-completition-everywhere t)
     ;; wa for variable readings
     ;;(add-to-list 'safe-local-variable-values
@@ -368,6 +368,9 @@
 ;;              org-roam-ui-follow t
 ;;              org-roam-ui-update-on-save t
 ;;              org-roam-ui-open-on-start t))
+
+(add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
+(load-library "org-roam-ui")
 
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
@@ -484,6 +487,12 @@
   ;; update feed counts on elfeed-quit
   (advice-add 'efleed-search-quit-window :after #'elfeed-dashboard-update-links))
 
+(use-package elfeed-goodies
+:ensure t
+:init
+(elfeed-goodies/setup)
+)
+
 (use-package dired
   :ensure nil)
 
@@ -546,11 +555,9 @@
 (setq mu4e-get-mail-command "mbsync -a")
 (setq mu4e-mail-dir "~/.mail")
 
-(use-package command-log-mode
-  :strony t)
+(use-package command-log-mode)
 
-(use-package all-the-icons
-  :ensure t)
+(use-package all-the-icons)
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -582,26 +589,3 @@
 
 (use-package xresources-theme
   :ensure t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-minibuffer-history-key "M-p")
- '(package-selected-packages
-   '(xresources-theme doom-modeline rfc-mode magit rust-mode org-ac auto-complete flycheck ranger all-the-icons-dired dired-single elfeed-dashboard elfeed-org org-re-reveal org-tree-slide emojify unicode-fonts general which-key org-journal org-roam evil-org undo-fu evil-collection org-download org-superstar org-super-agenda deft helm-org-rifle ivy-prescient all-the-icons-ivy counsel ivy-rich ivy rainbow-mode dashboard page-break-lines evil-goggles beacon doom-themes use-package))
- '(safe-local-variable-values
-   '((org-roam-db-location . "./org-roam.db")
-     (org-roam-directory . "."))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-goggles-change-face ((t (:inherit diff-removed))))
- '(evil-goggles-delete-face ((t (:inherit diff-removed))))
- '(evil-goggles-paste-face ((t (:inherit diff-added))))
- '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
- '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
- '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
- '(evil-goggles-yank-face ((t (:inherit diff-changed)))))

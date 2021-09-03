@@ -411,7 +411,7 @@
        :hook
          (after-init . org-roam-mode)
        :custom
-         (org-roam-directory "~/shared/org-roam")
+         (org-roam-directory "~/work/org-roam")
          (org-roam-completition-everywhere t)
          ;; wa for variable readings
          ;;(add-to-list 'safe-local-variable-values
@@ -448,6 +448,10 @@
 ;;              org-roam-ui-follow t
 ;;              org-roam-ui-update-on-save t
 ;;              org-roam-ui-open-on-start t))
+    #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    (add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
+    (load-library "org-roam-ui")
     #+END_SRC
 ** org-habit
    #+BEGIN_SRC emacs-lisp
@@ -592,6 +596,14 @@
       ;; update feed counts on elfeed-quit
       (advice-add 'efleed-search-quit-window :after #'elfeed-dashboard-update-links))
     #+END_SRC
+*** elfeed-goodies
+    #+BEGIN_SRC emacs-lisp
+      (use-package elfeed-goodies
+      :ensure t
+      :init
+      (elfeed-goodies/setup)
+      )
+    #+END_SRC
 ** Dired
    #+BEGIN_SRC emacs-lisp
    (use-package dired
@@ -690,11 +702,9 @@
 
 #+BEGIN_SRC emacs-lisp
 
-    (use-package command-log-mode
-      :strony t)
+    (use-package command-log-mode)
 
-    (use-package all-the-icons
-      :ensure t)
+    (use-package all-the-icons)
 
     (use-package doom-modeline
       :init (doom-modeline-mode 1)
