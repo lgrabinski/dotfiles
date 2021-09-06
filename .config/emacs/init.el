@@ -491,6 +491,9 @@
 :ensure t
 :init
 (elfeed-goodies/setup)
+:config
+(setq elfeed-goodies/entry-pane-position 'bottom)
+(setq elfeed-goodies/feed-source-column-width 32)
 )
 
 (use-package dired
