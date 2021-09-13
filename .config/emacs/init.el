@@ -421,6 +421,9 @@
     "fr" '(counsel-recentf :which-key "recent")
     "g" '(:ignore t: :which-key "magit")
     "gs" '(magit-status :which-key "status")
+    "l" '(:ignore t: :which-key "links")
+    "ll" '(link-hint-open-link-at-point :which-key "open link")
+    "lo" '(link-hint-open-link :which-key "show links")
     "s" '(:ignore t: :which-key "search")
     "ss" '(swiper :whick-key "swiper")
     "sd" '(deft :which-key "deft")
@@ -493,7 +496,7 @@
 (elfeed-goodies/setup)
 :config
 (setq elfeed-goodies/entry-pane-position 'bottom)
-(setq elfeed-goodies/feed-source-column-width 32)
+(setq elfeed-goodies/feed-source-column-width 35)
 )
 
 (use-package dired
@@ -511,6 +514,9 @@
 (setq-default evil-shift-with tab-width)
 
 (setq-default indent-tabs-mode nil)
+
+(use-package link-hint
+  :ensure t)
 
 (use-package flycheck
   :ensure t
