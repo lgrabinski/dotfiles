@@ -260,7 +260,11 @@
 (setq org-confirm-babel-evaluate nil)
 
 (use-package org-download
-  :ensure t)
+  :ensure t
+  :config
+  ;; add support for dired
+  (add-hook 'dired-mode-hook 'org-download-enable)
+)
 
 (set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.3)
 (dolist (face '((org-level-1 . 1.2)
@@ -397,6 +401,7 @@
     "SPC" '(counsel-M-x :whick-key "M-x")
     ;;"SPC" '(helm-M-x :whick-key "M-x")
     "a" '(:ignore t :which-key "applications")
+    "ad" '(dired :whick-key "dired")
     "ae" '(elfeed :which-key "elfeed")
     "ar" '(ranger :Which-key "ranger")
     "am" '(mu4e :which-key "mu4e")
@@ -510,6 +515,17 @@
 (use-package ranger
   :ensure t)
 
+(require 'mu4e)
+(setq mu4e-update-interval (* 10 60))
+(setq mu4e-get-mail-command "mbsync -a")
+(setq mu4e-mail-dir "~/.mail")
+
+(setq mail-user-agent 'mu4e-use-agent
+      message-send-mail-function 'smtpmail-send-it
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-service 465
+      smtpmail-stream-type 'ssl)
+
 (setq-default tab-width 2)
 (setq-default evil-shift-with tab-width)
 
@@ -545,6 +561,9 @@
 (use-package magit
    :ensure t)
 
+(use-package yang-mode
+  :ensure t)
+
 (use-package rfc-mode
   :ensure t
   :config
@@ -558,11 +577,6 @@
 (setq org-ditaa-jar-path
     (expand-file-name "c:/programs/ditaa0_9.jar"))
 ))
-
-(require 'mu4e)
-(setq mu4e-update-interval (* 10 60))
-(setq mu4e-get-mail-command "mbsync -a")
-(setq mu4e-mail-dir "~/.mail")
 
 (use-package command-log-mode)
 
@@ -598,3 +612,11 @@
 
 (use-package xresources-theme
   :ensure t)
+
+(let ((init_priv "~/shared/init_priv.el"))
+     (when (file-exists-p init_priv)
+           (load-file init_priv)))
+
+(let ((init_work "~/work/init_work.el"))
+     (when (file-exists-p init_work)
+           (load-file init_work)))

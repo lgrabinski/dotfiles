@@ -317,7 +317,11 @@
 ** org-download
    #+BEGIN_SRC emacs-lisp
    (use-package org-download
-     :ensure t)
+     :ensure t
+     :config
+     ;; add support for dired
+     (add-hook 'dired-mode-hook 'org-download-enable)
+   )
    #+END_SRC
 ** Fonts
    #+BEGIN_SRC emacs-lisp
@@ -488,6 +492,7 @@
          "SPC" '(counsel-M-x :whick-key "M-x")
          ;;"SPC" '(helm-M-x :whick-key "M-x")
          "a" '(:ignore t :which-key "applications")
+         "ad" '(dired :whick-key "dired")
          "ae" '(elfeed :which-key "elfeed")
          "ar" '(ranger :Which-key "ranger")
          "am" '(mu4e :which-key "mu4e")
@@ -625,6 +630,21 @@
      (use-package ranger
        :ensure t)
    #+END_SRC
+** mu4e - emails
+   #+BEGIN_SRC emacs-lisp
+   (require 'mu4e)
+   (setq mu4e-update-interval (* 10 60))
+   (setq mu4e-get-mail-command "mbsync -a")
+   (setq mu4e-mail-dir "~/.mail")
+   #+END_SRC
+*** sending emails
+   #+BEGIN_SRC emacs-lisp
+     (setq mail-user-agent 'mu4e-use-agent
+           message-send-mail-function 'smtpmail-send-it
+           smtpmail-smtp-server "smtp.gmail.com"
+           smtpmail-service 465
+           smtpmail-stream-type 'ssl)
+   #+END_SRC
 * Editing
 ** Tab width
    #+BEGIN_SRC emacs-lisp
@@ -680,6 +700,12 @@
    (use-package magit
       :ensure t)
    #+END_SRC
+** Yang
+*** yang-mode
+    #+BEGIN_SRC emacs-lisp
+    (use-package yang-mode
+      :ensure t)
+    #+END_SRC
 * Documentation
 ** rf-mode
    #+BEGIN_SRC emacs-lisp
@@ -700,15 +726,6 @@
       (expand-file-name "c:/programs/ditaa0_9.jar"))
   ))
 #+END_SRC
-* Mail
-** mu4e
-   #+BEGIN_SRC emacs-lisp
-   (require 'mu4e)
-   (setq mu4e-update-interval (* 10 60))
-   (setq mu4e-get-mail-command "mbsync -a")
-   (setq mu4e-mail-dir "~/.mail")
-   #+END_SRC
-
 * Others
 
 #+BEGIN_SRC emacs-lisp
@@ -750,4 +767,16 @@
 (use-package xresources-theme
   :ensure t)
 #+END_SRC
-
+* Additional config
+** Private
+   #+BEGIN_SRC emacs-lisp
+   (let ((init_priv "~/shared/init_priv.el"))
+        (when (file-exists-p init_priv)
+              (load-file init_priv)))
+   #+END_SRC
+** Work
+   #+BEGIN_SRC emacs-lisp
+     (let ((init_work "~/work/init_work.el"))
+          (when (file-exists-p init_work)
+                (load-file init_work)))
+   #+END_SRC
