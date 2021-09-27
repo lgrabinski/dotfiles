@@ -415,7 +415,7 @@
        :hook
          (after-init . org-roam-mode)
        :custom
-         (org-roam-directory "~/shared/org-roam")
+         (org-roam-directory "~/work/org-roam")
          (org-roam-completition-everywhere t)
          ;; wa for variable readings
          ;;(add-to-list 'safe-local-variable-values
