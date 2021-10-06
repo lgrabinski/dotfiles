@@ -64,7 +64,9 @@
 
 ;;(use-package nord-theme)
 ;;(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . 90))
+(pcase system-type
+((or 'gnu/linux 'cygwin)
+ (add-to-list 'default-frame-alist '(alpha . 50))))
 
 (use-package beacon
   :ensure t
@@ -160,11 +162,11 @@
       (setq all-the-icons-ivy-buffer-commands '()))
 
 (use-package ivy-prescient
-  :after counsel
-  :custom
-  (ivy-prescient-enable-filtering nil)
-  :config
-  (ivy-prescient-mode 1))
+   :after counsel
+   :custom
+   (ivy-prescient-enable-filtering nil)
+   :config
+   (ivy-prescient-mode 1))
 
 ;;      (use-package ivy-posframe
 ;;        :ensure t
@@ -202,9 +204,18 @@
 (use-package deft
   :ensure t
   :config
-  (setq deft-directory "~/shared")
+  (setq deft-directory "~/work")
+  (setq deft-recursive t)
   (setq deft-extensions '("org" "md"))
 )
+
+;;    (use-package vertico
+;;      :init
+;;        (vertico-mode))
+
+;;    (use-package consult
+;;      :hook (completion-list-mode . consult-preview-at-point-mode)
+;;      :init)
 
 (use-package org
   :ensure nil
@@ -376,6 +387,12 @@
 (add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
 (load-library "org-roam-ui")
 
+;;(use-package simple_httpd
+;;  :ensure t)
+
+;;(use-package websocket
+;;  :ensure t
+
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
 (setq org-habit-show-all-today t)
@@ -404,7 +421,8 @@
     "ad" '(dired :whick-key "dired")
     "ae" '(elfeed :which-key "elfeed")
     "ar" '(ranger :Which-key "ranger")
-    "am" '(mu4e :which-key "mu4e")
+    ;;"am" '(mu4e :which-key "mu4e")
+    ;; Above line moved to emacs_init_priv.org not shared on github
     "t" '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
     ;;"tt" '(load-theme :whick-key "choose theme")
@@ -420,6 +438,7 @@
     "bn" '(next-buffer :which-key "next buffer")
     "bp" '(previous-buffer :whick-key "previuos-buffer")
     "bd" '(kill-buffer :whick-key "kill-buffer")
+    "br" '(counsel-buffer-or-recentf :Which-key "recent")
     "f" '(:ignore t: :which-key "files")
     "ff" '(counsel-find-file :which-key "find")
     ;;"ff" '(helm-find-files :which-key "find")
@@ -515,17 +534,6 @@
 (use-package ranger
   :ensure t)
 
-(require 'mu4e)
-(setq mu4e-update-interval (* 10 60))
-(setq mu4e-get-mail-command "mbsync -a")
-(setq mu4e-mail-dir "~/.mail")
-
-(setq mail-user-agent 'mu4e-use-agent
-      message-send-mail-function 'smtpmail-send-it
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-service 465
-      smtpmail-stream-type 'ssl)
-
 (setq-default tab-width 2)
 (setq-default evil-shift-with tab-width)
 
@@ -583,8 +591,15 @@
 (use-package all-the-icons)
 
 (use-package doom-modeline
+  :ensure t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 18)))
+  :config (setq doom-modeline-height 22)
+)
+
+;;(use-package spaceline
+;;  :ensure t
+;;  :config
+;;  (spaceline-spacemacs-theme))
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -593,12 +608,12 @@
 ;;(require 'ox-reveal)
 
 (add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs ready in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
+  (lambda ()
+    (message "Emacs ready in %s with %d garbage collections."
+      (format "%.2f seconds"
+        (float-time
+          (time-subtract after-init-time before-init-time)))
+                         gcs-done)))
 
 
 ;; Make startup faster by reducing the frequency of garbage

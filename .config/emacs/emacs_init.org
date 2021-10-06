@@ -79,7 +79,9 @@
 
     ;;(use-package nord-theme)
     ;;(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-    (add-to-list 'default-frame-alist '(alpha . 90))
+    (pcase system-type
+    ((or 'gnu/linux 'cygwin)
+     (add-to-list 'default-frame-alist '(alpha . 90))))
 
     (use-package beacon
       :ensure t
@@ -138,58 +140,58 @@
 * Incrementatl completion and selection narrowing
 ** Ivy and Counsel
    #+BEGIN_SRC emacs-lisp
-     (use-package ivy 
-       :ensure t
-       :diminish
-       :bind (("C-s" . swiper)
-            :map ivy-minibuffer-map
-            ("TAB" . ivy-alt-done)
-            ("C-l" . ivy-alt-done)
-            ("C-j" . ivy-next-line)
-            ("C-k" . ivy-previous-line)
-            :map ivy-switch-buffer-map
-            ("C-k" . ivy-previous-line)
-            ("C-l" . ivy-done)
-            ("C-d" . ivy-switch-buffer-kill)
-            :map ivy-reverse-i-search-map
-            ("C-k" . ivy-previous-line)
-            ("C-d" . ivy-reverse-i-search-kill))
-       :config
-       (ivy-mode 1)
-       (setq ivy-use-virtual-buffers t))
+   (use-package ivy 
+     :ensure t
+     :diminish
+     :bind (("C-s" . swiper)
+          :map ivy-minibuffer-map
+          ("TAB" . ivy-alt-done)
+          ("C-l" . ivy-alt-done)
+          ("C-j" . ivy-next-line)
+          ("C-k" . ivy-previous-line)
+          :map ivy-switch-buffer-map
+          ("C-k" . ivy-previous-line)
+          ("C-l" . ivy-done)
+          ("C-d" . ivy-switch-buffer-kill)
+          :map ivy-reverse-i-search-map
+          ("C-k" . ivy-previous-line)
+          ("C-d" . ivy-reverse-i-search-kill))
+     :config
+     (ivy-mode 1)
+     (setq ivy-use-virtual-buffers t))
 
-       (use-package ivy-rich
+     (use-package ivy-rich
+       :ensure t
+       :init
+       (ivy-rich-mode 1)
+       :after counsel
+       :config
+       (setq ivy-rich-path-style 'abbred)
+       (setq ivy-rich-project-root-cache-mode 1))
+
+     (use-package counsel
+       :ensure t
+       :bind (("M-b" . counsel-switch-buffer)
+              ("M-x" . counsel-M-x)
+              ("C-x C-f" . counsel-find-file)
+              :map minibuffer-local-map
+              ("C-r" . 'counsel-minibuffer-history))
+       :custom
+       (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+       :config
+       (counsel-mode 1))
+
+       (use-package all-the-icons-ivy
          :ensure t
          :init
-         (ivy-rich-mode 1)
-         :after counsel
+         (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
          :config
-         (setq ivy-rich-path-style 'abbred)
-         (setq ivy-rich-project-root-cache-mode 1))
-
-       (use-package counsel
-         :ensure t
-         :bind (("M-b" . counsel-switch-buffer)
-                ("M-x" . counsel-M-x)
-                ("C-x C-f" . counsel-find-file)
-                :map minibuffer-local-map
-                ("C-r" . 'counsel-minibuffer-history))
-         :custom
-         (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-         :config
-         (counsel-mode 1))
-
-         (use-package all-the-icons-ivy
-           :ensure t
-           :init
-           (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
-           :config
-           (setq all-the-icons-ivy-buffer-commands '()))
+         (setq all-the-icons-ivy-buffer-commands '()))
    #+END_SRC
 
 *** Better sorting with prescient.el
     #+BEGIN_SRC emacs-lisp
-    (use-package ivy-prescient
+   (use-package ivy-prescient
       :after counsel
       :custom
       (ivy-prescient-enable-filtering nil)
@@ -243,10 +245,24 @@
      (use-package deft
        :ensure t
        :config
-       (setq deft-directory "~/shared")
+       (setq deft-directory "~/work")
+       (setq deft-recursive t)
        (setq deft-extensions '("org" "md"))
      )
    #+END_SRC
+** Vertico and Consult
+*** Vertico
+    #+BEGIN_SRC emacs-lisp
+;;    (use-package vertico
+;;      :init
+;;        (vertico-mode))
+    #+END_SRC
+*** Consult
+    #+BEGIN_SRC emacs-lisp
+;;    (use-package consult
+;;      :hook (completion-list-mode . consult-preview-at-point-mode)
+;;      :init)
+    #+END_SRC
 * Org-mode 
 ** Basic
    #+BEGIN_SRC emacs-lisp
@@ -457,6 +473,14 @@
     (add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
     (load-library "org-roam-ui")
     #+END_SRC
+**** org-roam-ui dependencies
+     #+BEGIN_SRC emacs-lisp
+     ;;(use-package simple_httpd
+     ;;  :ensure t)
+
+     ;;(use-package websocket
+     ;;  :ensure t
+     #+END_SRC
 ** org-habit
    #+BEGIN_SRC emacs-lisp
      (with-eval-after-load 'org
@@ -495,7 +519,8 @@
          "ad" '(dired :whick-key "dired")
          "ae" '(elfeed :which-key "elfeed")
          "ar" '(ranger :Which-key "ranger")
-         "am" '(mu4e :which-key "mu4e")
+         ;;"am" '(mu4e :which-key "mu4e")
+         ;; Above line moved to emacs_init_priv.org not shared on github
          "t" '(:ignore t :which-key "toggles")
          "tt" '(counsel-load-theme :which-key "choose theme")
          ;;"tt" '(load-theme :whick-key "choose theme")
@@ -511,6 +536,7 @@
          "bn" '(next-buffer :which-key "next buffer")
          "bp" '(previous-buffer :whick-key "previuos-buffer")
          "bd" '(kill-buffer :whick-key "kill-buffer")
+         "br" '(counsel-buffer-or-recentf :Which-key "recent")
          "f" '(:ignore t: :which-key "files")
          "ff" '(counsel-find-file :which-key "find")
          ;;"ff" '(helm-find-files :which-key "find")
@@ -631,20 +657,7 @@
        :ensure t)
    #+END_SRC
 ** mu4e - emails
-   #+BEGIN_SRC emacs-lisp
-   (require 'mu4e)
-   (setq mu4e-update-interval (* 10 60))
-   (setq mu4e-get-mail-command "mbsync -a")
-   (setq mu4e-mail-dir "~/.mail")
-   #+END_SRC
-*** sending emails
-   #+BEGIN_SRC emacs-lisp
-     (setq mail-user-agent 'mu4e-use-agent
-           message-send-mail-function 'smtpmail-send-it
-           smtpmail-smtp-server "smtp.gmail.com"
-           smtpmail-service 465
-           smtpmail-stream-type 'ssl)
-   #+END_SRC
+   Configuration moved to private part of may configuration: emacs_init_priv.org not shared on github.
 * Editing
 ** Tab width
    #+BEGIN_SRC emacs-lisp
@@ -728,39 +741,45 @@
 #+END_SRC
 * Others
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
+  (use-package command-log-mode)
 
-    (use-package command-log-mode)
+  (use-package all-the-icons)
 
-    (use-package all-the-icons)
+  (use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1)
+    :config (setq doom-modeline-height 22)
+  )
+                
+  ;;(use-package spaceline
+  ;;  :ensure t
+  ;;  :config
+  ;;  (spaceline-spacemacs-theme))
 
-    (use-package doom-modeline
-      :init (doom-modeline-mode 1)
-      :custom ((doom-modeline-height 18)))
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-    (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  ;;(use-package ox-reveal
+  ;;	:ensure t)
+  ;;(require 'ox-reveal)
 
-    ;;(use-package ox-reveal
-    ;;	:ensure t)
-    ;;(require 'ox-reveal)
+  (add-hook 'emacs-startup-hook
+    (lambda ()
+      (message "Emacs ready in %s with %d garbage collections."
+        (format "%.2f seconds"
+          (float-time
+            (time-subtract after-init-time before-init-time)))
+                           gcs-done)))
 
-    (add-hook 'emacs-startup-hook
-              (lambda ()
-                (message "Emacs ready in %s with %d garbage collections."
-                         (format "%.2f seconds"
-                                 (float-time
-                                  (time-subtract after-init-time before-init-time)))
-                         gcs-done)))
-					 
-					 
-    ;; Make startup faster by reducing the frequency of garbage
-    ;; collection.  The default is 800 kilobytes.  Measured in bytes.
-    (setq gc-cons-threshold (* 50 1000 1000))
 
-    ;; The rest of the init file.
+  ;; Make startup faster by reducing the frequency of garbage
+  ;; collection.  The default is 800 kilobytes.  Measured in bytes.
+  (setq gc-cons-threshold (* 50 1000 1000))
 
-    ;; Make gc pauses faster by decreasing the threshold.
-    (setq gc-cons-threshold (* 2 1000 1000))
+  ;; The rest of the init file.
+
+  ;; Make gc pauses faster by decreasing the threshold.
+  (setq gc-cons-threshold (* 2 1000 1000))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -776,7 +795,7 @@
    #+END_SRC
 ** Work
    #+BEGIN_SRC emacs-lisp
-     (let ((init_work "~/work/init_work.el"))
-          (when (file-exists-p init_work)
-                (load-file init_work)))
+   (let ((init_work "~/work/init_work.el"))
+        (when (file-exists-p init_work)
+              (load-file init_work)))
    #+END_SRC
