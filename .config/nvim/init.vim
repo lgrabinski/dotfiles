@@ -34,9 +34,22 @@ Plug 'glepnir/dashboard-nvim'
 
 Plug 'liuchengxu/vim-clap'
 
+Plug 'romgrk/doom-one.vim'
+
+Plug 'mcchrish/nnn.vim'
+
 call plug#end()
 
 
 " Defaul value is clap for dashboard
 let g:dashboard_default_executive = 'clap'
-colorscheme nord
+
+"let g:doom_one_terminal_colors = v:true
+
+"colorscheme doom-one 
+"colorscheme xresources
+colorscheme wal
+
+" airline related
+let g:airline_powerline_fonts = 1
+set t_Co=256

@@ -66,7 +66,7 @@
 ;;(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
 (pcase system-type
 ((or 'gnu/linux 'cygwin)
- (add-to-list 'default-frame-alist '(alpha . 50))))
+ (add-to-list 'default-frame-alist '(alpha . 90))))
 
 (use-package beacon
   :ensure t
@@ -322,6 +322,9 @@
 :config
 (evil-collection-init))
 
+(use-package evil-tutor
+  :ensure t)
+
 ;; (use-package undo-tree
  ;;  :init
  ;;  (global-undo-tree-mode 1)
@@ -400,6 +403,12 @@
 (use-package org-journal
   :ensure t
 )
+
+(use-package org-alert
+  :ensure t
+  :config
+    (setq alert-default-style 'libnotify)
+          org-alert-interval 30)
 
 (use-package which-key
   :init (which-key-mode)
@@ -534,6 +543,15 @@
 (use-package ranger
   :ensure t)
 
+(use-package mu4e-alert
+  :ensure t
+  :hook
+    (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+  :config
+    (setq mu4e-alert-set-default-style 'libnotify
+          mu4e-alert-email-notification-types '(count))
+)
+
 (setq-default tab-width 2)
 (setq-default evil-shift-with tab-width)
 
@@ -593,7 +611,9 @@
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :config (setq doom-modeline-height 22)
+  :config
+  (setq doom-modeline-height 22
+        doom-modeline-minor-modes nil)
 )
 
 ;;(use-package spaceline

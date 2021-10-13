@@ -27,4 +27,9 @@ pfetch
 # "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
-wal -R
+#wal -R
+. "$HOME/.cache/wal/colors.sh"
+
+# nnn related
+export NNN_PLUG='c:fzcd;f:finder;i:imgview;p:preview-tabbed;o:fzopen;w:wallpaper'
+export NNN_FIFO='/tmp/nnn.fifo'

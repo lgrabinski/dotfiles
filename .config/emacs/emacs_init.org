@@ -392,6 +392,11 @@
        (evil-collection-init))
     #+END_SRC
 
+*** evil-tutor
+    #+BEGIN_SRC emacs-lisp
+    (use-package evil-tutor
+      :ensure t)
+    #+END_SRC
 *** undo-tree
     *Note* Need to undo-tree in evi-mode
     Package not use as seems undo-tree is unassing causing errors on windows 10 run
@@ -492,6 +497,14 @@
    (use-package org-journal
      :ensure t
    )
+   #+END_SRC
+** org-alert
+   #+BEGIN_SRC emacs-lisp
+   (use-package org-alert
+     :ensure t
+     :config
+       (setq alert-default-style 'libnotify)
+             org-alert-interval 30)
    #+END_SRC
 * Key bindings
 ** Which-key
@@ -658,6 +671,17 @@
    #+END_SRC
 ** mu4e - emails
    Configuration moved to private part of may configuration: emacs_init_priv.org not shared on github.
+*** mu4e-alert
+    #+BEGIN_SRC emacs-lisp
+      (use-package mu4e-alert
+        :ensure t
+        :hook
+          (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+        :config
+          (setq mu4e-alert-set-default-style 'libnotify
+                mu4e-alert-email-notification-types '(count))
+      )
+    #+END_SRC
 * Editing
 ** Tab width
    #+BEGIN_SRC emacs-lisp
@@ -749,9 +773,11 @@
   (use-package doom-modeline
     :ensure t
     :init (doom-modeline-mode 1)
-    :config (setq doom-modeline-height 22)
+    :config
+    (setq doom-modeline-height 22
+          doom-modeline-minor-modes nil)
   )
-                
+        
   ;;(use-package spaceline
   ;;  :ensure t
   ;;  :config
@@ -780,7 +806,7 @@
 
   ;; Make gc pauses faster by decreasing the threshold.
   (setq gc-cons-threshold (* 2 1000 1000))
-#+END_SRC
+  #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (use-package xresources-theme
