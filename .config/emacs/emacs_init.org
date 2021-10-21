@@ -71,7 +71,14 @@
     :config
     (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-    (load-theme 'doom-palenight t)
+
+    (pcase system-type
+      ('gnu/linux
+       (load-theme 'xresources t))
+      ('windows-nt
+       (load-theme 'doom-palenight t)))
+
+    ;;(load-theme 'doom-palenight t)
     ;;(load-theme 'doom-badger t)
     ;;(load-theme 'doom-one t)
 
@@ -612,7 +619,11 @@
    #+END_SRC
 ** Reveal.js
    #+BEGIN_SRC emacs-lisp
-   (use-package org-re-reveal)
+     (use-package org-re-reveal
+       :ensure t
+       :config
+       (setq org-re-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"
+             org-re-reveal-revealjs-version "4"))
    #+END_SRC
 * Applications
 ** Elfeed

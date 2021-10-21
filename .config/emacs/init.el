@@ -56,7 +56,14 @@
 :config
 (setq doom-themes-enable-bold t
     doom-themes-enable-italic t)
-(load-theme 'doom-palenight t)
+
+(pcase system-type
+  ('gnu/linux
+   (load-theme 'xresources t))
+  ('windows-nt
+   (load-theme 'doom-palenight t)))
+
+;;(load-theme 'doom-palenight t)
 ;;(load-theme 'doom-badger t)
 ;;(load-theme 'doom-one t)
 
