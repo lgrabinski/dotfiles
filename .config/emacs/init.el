@@ -508,7 +508,11 @@
     (kbd "q") 'sy/org-end-presentation)
   (setq org-tree-slide-header t))
 
-(use-package org-re-reveal)
+(use-package org-re-reveal
+  :ensure t
+  :config
+  (setq org-re-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"
+        org-re-reveal-revealjs-version "4"))
 
 (use-package elfeed-org
   :ensure t
