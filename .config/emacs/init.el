@@ -356,6 +356,27 @@
   (evil-org-agenda-set-keys)
   )
 
+(use-package org-roam
+  :ensure t
+  :hook
+    (after-init . org-roam-mode)
+  :custom
+    (org-roam-directory "~/work/org-roam")
+    (org-roam-completition-everywhere t)
+    ;; wa for variable readings
+    ;;(add-to-list 'safe-local-variable-values
+    ;;        '(org-roam-directory . "."))
+    (org-roam-capture-templates
+    '(("d" "default" plain
+       "%?"
+       :if-new (file+head "${slug}.org" "#+TITLE: ${title}\n")
+       :unnarrowed t)))
+  :init
+    (setq org-roam-v2-ack t)
+  :config
+    (org-roam-setup)
+)
+
 (use-package dash
   :ensure t)
 
@@ -374,7 +395,7 @@
 ;;              org-roam-ui-open-on-start t))
 
 (add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
-;;(load-library "org-roam-ui")
+(load-library "org-roam-ui")
 
 ;;(use-package simple_httpd
 ;;  :ensure t)
