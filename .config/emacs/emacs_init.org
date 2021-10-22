@@ -437,28 +437,8 @@
         )
     #+END_SRC
 ** org-roam
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-roam
-       :ensure t
-       :hook
-         (after-init . org-roam-mode)
-       :custom
-         (org-roam-directory "~/work/org-roam")
-         (org-roam-completition-everywhere t)
-         ;; wa for variable readings
-         ;;(add-to-list 'safe-local-variable-values
-         ;;        '(org-roam-directory . "."))
-         (org-roam-capture-templates
-         '(("d" "default" plain
-            "%?"
-            :if-new (file+head "${slug}.org" "#+TITLE: ${title}\n")
-            :unnarrowed t)))
-       :init
-         (setq org-roam-v2-ack t)
-       :config
-         (org-roam-setup)
-     )
-   #+END_SRC
+   All majar part of org-roam configuration moved to private section of emacs config not share on github.
+   This was done to overcome issue with org-rodam-directory and problems related to usage of .dir-locals.
 *** org-roam dependencies
     #+BEGIN_SRC emacs-lisp
       (use-package dash
@@ -483,7 +463,7 @@
     #+END_SRC
     #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
-    (load-library "org-roam-ui")
+    ;;(load-library "org-roam-ui")
     #+END_SRC
 **** org-roam-ui dependencies
      #+BEGIN_SRC emacs-lisp
