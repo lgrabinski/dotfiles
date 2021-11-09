@@ -260,11 +260,16 @@
                              :order 1)))))))))
 )
 
-;; org-superstart
 (use-package org-superstar
-  :ensure t)
-(setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
-(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  :ensure t
+  :config
+  (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+
+;; (use-package org-bullets
+;;   :hook (org-mode . org-bullets-mode)
+ ;;  :custom
+ ;;  (org-bullets-bullet-list '("◉" "○" "✸" "✿" "○" "▷" "⁖")))
 
 (org-babel-do-load-languages
   'org-babel-load-languages
@@ -493,26 +498,30 @@
 (use-package emojify
   :commands emojify-mode)
 
-(defun sy/org-start-presentation ()
-  (interactive)
-  (org-tree-slide-mode 1)
-  (setq text-scale-mode-amount 4)
-  (test-scale 1))
+(defun lg/presentation-start ()
+  (beacon-mode 0)
+  (setq text-scale-mode-amount 3)
+  (text-scale-mode 1)
+  (setq org-startup-with-inline-images t))
 
-(defun sy/org-end-presentation ()
-  (interactive)
-  (text-scale-mode 0)
-  (org-tree-slide-mode 0))
+(defun lg/presentation-stop ()
+  (beacon-mode 1)
+  (test-scale-mode 0)
+  (setq org-startup-with-inline-images nil))
 
 (use-package org-tree-slide
-  :defer t
+  :hook ((org-tree-slide-play . lg/presentation-start)
+         (org-tree-slide-stop . lg/presentation-stop))
+  :ensure t
   :after org
-  :commands org-tree-slide-mode
   :config
-  (evil-define-key 'normal org-tree-slide-mode-map
-    (kbd "C-j") 'org-tree-slide-move-next-tree
-    (kbd "C-k") 'org-tree-slide-move-previous-tree
-    (kbd "q") 'sy/org-end-presentation)
+  ;;(evil-define-key 'normal org-tree-slide-mode-map
+  ;;  (kbd "C-j") 'org-tree-slide-move-next-tree
+  ;;  (kbd "C-k") 'org-tree-slide-move-previous-tree
+  ;;  (kbd "q") 'lg/org-end-presentation)
+  (setq org-tree-slide-breadcrumbs " >> ")
+  (setq org-tree-slide-activate-message "Presentation started")
+  (setq org-tree-slide-deactivate-message "Presentation ended")
   (setq org-tree-slide-header t))
 
 (use-package org-re-reveal

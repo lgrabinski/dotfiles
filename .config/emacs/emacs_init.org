@@ -315,15 +315,24 @@
       )
     #+END_SRC
 ** Better bullets 
+*** org-superstart
    #+BEGIN_SRC emacs-lisp
-
-        ;; org-superstart
-        (use-package org-superstar
-          :ensure t)
-        (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
-        (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
+   (use-package org-superstar
+     :ensure t
+     :config
+     (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
+     (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
    #+END_SRC
+
+   #+RESULTS:
+*** org-bullets
+    #+BEGIN_SRC emacs-lisp
+   ;; (use-package org-bullets
+   ;;   :hook (org-mode . org-bullets-mode)
+    ;;  :custom
+    ;;  (org-bullets-bullet-list '("◉" "○" "✸" "✿" "○" "▷" "⁖")))
+   #+END_SRC
+
 ** org-babel
    #+BEGIN_SRC emacs-lisp
      (org-babel-do-load-languages
@@ -605,27 +614,31 @@
 * Presentations
 ** org-tree-slide
    #+BEGIN_SRC emacs-lisp
-   (defun sy/org-start-presentation ()
-     (interactive)
-     (org-tree-slide-mode 1)
-     (setq text-scale-mode-amount 4)
-     (test-scale 1))
-     
-   (defun sy/org-end-presentation ()
-     (interactive)
-     (text-scale-mode 0)
-     (org-tree-slide-mode 0))
+     (defun lg/presentation-start ()
+       (beacon-mode 0)
+       (setq text-scale-mode-amount 3)
+       (text-scale-mode 1)
+       (setq org-startup-with-inline-images t))
 
-   (use-package org-tree-slide
-     :defer t
-     :after org
-     :commands org-tree-slide-mode
-     :config
-     (evil-define-key 'normal org-tree-slide-mode-map
-       (kbd "C-j") 'org-tree-slide-move-next-tree
-       (kbd "C-k") 'org-tree-slide-move-previous-tree
-       (kbd "q") 'sy/org-end-presentation)
-     (setq org-tree-slide-header t))
+     (defun lg/presentation-stop ()
+       (beacon-mode 1)
+       (test-scale-mode 0)
+       (setq org-startup-with-inline-images nil))
+
+     (use-package org-tree-slide
+       :hook ((org-tree-slide-play . lg/presentation-start)
+              (org-tree-slide-stop . lg/presentation-stop))
+       :ensure t
+       :after org
+       :config
+       ;;(evil-define-key 'normal org-tree-slide-mode-map
+       ;;  (kbd "C-j") 'org-tree-slide-move-next-tree
+       ;;  (kbd "C-k") 'org-tree-slide-move-previous-tree
+       ;;  (kbd "q") 'lg/org-end-presentation)
+       (setq org-tree-slide-breadcrumbs " >> ")
+       (setq org-tree-slide-activate-message "Presentation started")
+       (setq org-tree-slide-deactivate-message "Presentation ended")
+       (setq org-tree-slide-header t))
    #+END_SRC
 ** Reveal.js
    #+BEGIN_SRC emacs-lisp
