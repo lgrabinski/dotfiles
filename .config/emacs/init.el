@@ -274,8 +274,13 @@
   (ditaa . t)
   (latex . t)
   (asymptote . t)
+  (rust . t)
+  (latex . t)
   ))
 (setq org-confirm-babel-evaluate nil)
+
+(use-package ob-rust
+  :ensure t)
 
 (use-package org-download
   :ensure t
@@ -467,6 +472,8 @@
     "s" '(:ignore t: :which-key "search")
     "ss" '(swiper :whick-key "swiper")
     "sd" '(deft :which-key "deft")
+    "sr" '(helm-org-rifle :which-key "rifle")
+    "sR" '(helm-org-rifle-directories :which-key "rifle dir") 
     ;;"ss" '(helm-swoop :whick-key "swoop")
     "w" '(:ignore t :which-key "windows")
     "w/" '(split-window-right :which-key "split-right")
