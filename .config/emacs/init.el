@@ -48,6 +48,7 @@
 (pcase system-type
   ((or 'gnu/linux 'cygwin)
    (set-face-attribute 'default nil :font "Fira Code Retina" :height 60))
+   ;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 60 :weight 'bold))
   ('windows-nt 
    (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
 
@@ -59,7 +60,8 @@
 
 (pcase system-type
   ('gnu/linux
-   (load-theme 'xresources t))
+   ;;(load-theme 'xresources t))
+   (load-theme 'doom-palenight t))
   ('windows-nt
    (load-theme 'doom-palenight t)))
 
@@ -227,7 +229,8 @@
 (use-package org
   :ensure nil
   :config
-  (setq org-ellipsis " ▼")
+  ;;(setq org-ellipsis " ▼")
+  (setq org-ellipsis " ⬎")
   (setq org-hide-emphasis-markers t)
   )
 
@@ -278,9 +281,10 @@
   (plantuml . t)
   (ditaa . t)
   (latex . t)
-  (asymptote . t)
+ ;; (asymptote . t)
   (rust . t)
   (latex . t)
+  (dot . t)
   ))
 (setq org-confirm-babel-evaluate nil)
 
@@ -366,6 +370,17 @@
   (evil-org-agenda-set-keys)
   )
 
+;;(use-package evil-commentary
+;;  :ensure t
+;;  :init
+;;  (evil-commentary-mode)
+;;)
+
+(use-package evil-nerd-commenter
+  :ensure t
+  :init
+  (evilnc-default-hotkeys))
+
 (use-package org-roam
   :ensure t
   :hook
@@ -390,22 +405,23 @@
 (use-package dash
   :ensure t)
 
-;;    (use-package org-roam-ui
-;;      :ensure
+(use-package org-roam-ui
+      :ensure
 ;;        (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-;;        :after org-roam
+        :after org-roam
 ;;    ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
 ;;    ;;         a hookable mode anymore, you're advised to pick something yourself
 ;;    ;;         if you don't care about startup time, use
 ;;    ;;  :hook (after-init . org-roam-ui-mode)
-;;        :config
-;;        (setq org-roam-ui-sync-theme t
-;;              org-roam-ui-follow t
-;;              org-roam-ui-update-on-save t
-;;              org-roam-ui-open-on-start t))
+        :config
+        (setq org-roam-ui-sync-theme t
+              org-roam-ui-follow t
+              org-roam-ui-update-on-save nil
+              org-roam-ui-open-on-start nil))
 
-(add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
-(load-library "org-roam-ui")
+;; not needed anymore as org-roam-ui available on melpa
+;; (add-to-list 'load-path "~/.config/emacs/private/org-roam-ui")
+;; (load-library "org-roam-ui")
 
 ;;(use-package simple_httpd
 ;;  :ensure t)
@@ -478,7 +494,7 @@
     "ss" '(swiper :whick-key "swiper")
     "sd" '(deft :which-key "deft")
     "sr" '(helm-org-rifle :which-key "rifle")
-    "sR" '(helm-org-rifle-directories :which-key "rifle dir") 
+    "sR" '(helm-org-rifle-directories :which-key "rifle dir")
     ;;"ss" '(helm-swoop :whick-key "swoop")
     "w" '(:ignore t :which-key "windows")
     "w/" '(split-window-right :which-key "split-right")
