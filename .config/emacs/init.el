@@ -188,6 +188,9 @@
 ;;          (ivy-posframe-mode 1)
 ;;      )
 
+(use-package ivy-bibtex
+  :ensure t)
+
 ;;   (use-package helm
 ;;     :ensure t
 ;;     :bind
@@ -429,6 +432,11 @@
 ;;(use-package websocket
 ;;  :ensure t
 
+(use-package org-roam-bibtex
+  :after org-roam
+  :config
+  (require 'org-ref))
+
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
 (setq org-habit-show-all-today t)
@@ -522,7 +530,7 @@
 
 (defun lg/presentation-stop ()
   (beacon-mode 1)
-  (test-scale-mode 0)
+  (text-scale-mode 0)
   (setq org-startup-with-inline-images nil))
 
 (use-package org-tree-slide
@@ -698,3 +706,23 @@
 (let ((init_work "~/work/init_work.el"))
      (when (file-exists-p init_work)
            (load-file init_work)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-minibuffer-history-key "M-p")
+ '(package-selected-packages
+   '(ivy-bibtex yang-mode xresources-theme which-key use-package unicode-fonts undo-fu rust-mode rfc-mode ranger rainbow-mode page-break-lines org-tree-slide org-superstar org-super-agenda org-roam-ui org-roam-bibtex org-re-reveal org-journal org-gcal org-download org-alert org-ac ob-rust mu4e-alert magit link-hint ivy-rich ivy-prescient helm-org-rifle general flycheck evil-tutor evil-org evil-nerd-commenter evil-goggles evil-commentary evil-collection emojify elfeed-org elfeed-goodies elfeed-dashboard doom-themes doom-modeline dired-single deft dashboard counsel command-log-mode beacon all-the-icons-ivy all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-goggles-change-face ((t (:inherit diff-removed))))
+ '(evil-goggles-delete-face ((t (:inherit diff-removed))))
+ '(evil-goggles-paste-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
+ '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
+ '(evil-goggles-yank-face ((t (:inherit diff-changed)))))

@@ -220,6 +220,12 @@
 ;;          (ivy-posframe-mode 1)
 ;;      )
     #+END_SRC
+*** ivy-bibtex
+    Required by org-roam-bibtex
+    #+BEGIN_SRC emacs-lisp
+      (use-package ivy-bibtex
+        :ensure t)
+    #+END_SRC
 ** Helm 
 *** Basic
     #+BEGIN_SRC emacs-lisp
@@ -531,6 +537,13 @@
      ;;(use-package websocket
      ;;  :ensure t
      #+END_SRC
+*** org-roam-bibtex
+    #+BEGIN_SRC emacs-lisp
+    (use-package org-roam-bibtex
+      :after org-roam
+      :config
+      (require 'org-ref))
+    #+END_SRC
 ** org-habit
    #+BEGIN_SRC emacs-lisp
      (with-eval-after-load 'org
@@ -643,7 +656,7 @@
 
      (defun lg/presentation-stop ()
        (beacon-mode 1)
-       (test-scale-mode 0)
+       (text-scale-mode 0)
        (setq org-startup-with-inline-images nil))
 
      (use-package org-tree-slide
