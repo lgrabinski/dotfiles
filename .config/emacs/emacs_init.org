@@ -146,7 +146,7 @@
        :ensure t)
    #+END_SRC
 
-* Incrementatl completion and selection narrowing
+* Incrementatl completion, searching, selection and narrowing
 ** Ivy and Counsel
    #+BEGIN_SRC emacs-lisp
    (use-package ivy 
@@ -226,6 +226,12 @@
       (use-package ivy-bibtex
         :ensure t)
     #+END_SRC
+** Embark
+   #+BEGIN_SRC emacs-lisp
+   (use-package embark
+     :ensure t
+   )
+   #+END_SRC
 ** Helm 
 *** Basic
     #+BEGIN_SRC emacs-lisp
@@ -274,10 +280,35 @@
     #+END_SRC
 *** Consult
     #+BEGIN_SRC emacs-lisp
-;;    (use-package consult
-;;      :hook (completion-list-mode . consult-preview-at-point-mode)
-;;      :init)
+    (use-package consult
+      :hook (completion-list-mode . consult-preview-at-point-mode)
+      :init)
     #+END_SRC
+**** embark-consult
+     #+BEGIN_SRC emacs-lisp
+       (use-package embark-consult
+         :ensure t
+         :after (embark consult)
+         :demand t
+         :bind (("C-S-a" . embark-act)
+               :map minibuffer-local-map
+               ("C-d" . embark-act))
+         :hook
+         (embark-collect-mode . consult-preview-at-point-mode)
+         :config
+         ;; Show Embark actions via which-key - seems not yep working!
+         (setq embark-action-indicator
+               (lambda (map)
+                 (whick-key--show-keymap "Embark" map nil nil 'no-paging)
+                 #'which-key--hide-popop-ignore-command)
+               embark-become-indicator embark-action-indicator))
+     #+END_SRC
+** Marginalia
+  #+BEGIN_SRC emacs-lisp
+    (use-package marginalia
+      :init
+      (marginalia-mode))
+  #+END_SRC
 * Org-mode 
 ** Basic
    #+BEGIN_SRC emacs-lisp
@@ -602,7 +633,8 @@
          "orf" '(org-roam-node-find :which-key "find node")
          "ori" '(org-roam-node-insert :which-key "insert node")
          ;;"b" '(:ignore t :which-key "buffers")
-         "bb" '(counsel-switch-buffer :which-key "switch-buffer")
+         "bb" '(consult-buffer :which-key "switch-buffer")
+         ;;"bb" '(counsel-switch-buffer :which-key "switch-buffer")
          ;;"bb" '(helm-buffers-list :which-key "switch-buffer")
          "bn" '(next-buffer :which-key "next buffer")
          "bp" '(previous-buffer :whick-key "previuos-buffer")
@@ -611,17 +643,20 @@
          "f" '(:ignore t: :which-key "files")
          "ff" '(counsel-find-file :which-key "find")
          ;;"ff" '(helm-find-files :which-key "find")
-         "fr" '(counsel-recentf :which-key "recent")
+         "fr" '(consult-recent-file :whick-key "recent")
+         ;;"fr" '(counsel-recentf :which-key "recent")
          "g" '(:ignore t: :which-key "magit")
          "gs" '(magit-status :which-key "status")
          "l" '(:ignore t: :which-key "links")
          "ll" '(link-hint-open-link-at-point :which-key "open link")
          "lo" '(link-hint-open-link :which-key "show links")
          "s" '(:ignore t: :which-key "search")
-         "ss" '(swiper :whick-key "swiper")
+         "ss" '(consult-line :which-key "lines")
+         ;;"ss" '(swiper :whick-key "swiper")
          "sd" '(deft :which-key "deft")
          "sr" '(helm-org-rifle :which-key "rifle")
-         "sR" '(helm-org-rifle-directories :which-key "rifle dir")
+         "sR" '(helm-org-rifle-directories :which-key "rifle-dir")
+         "sg" '(consult-ripgrep :which-key "ripgrep")
          ;;"ss" '(helm-swoop :whick-key "swoop")
          "w" '(:ignore t :which-key "windows")
          "w/" '(split-window-right :which-key "split-right")
@@ -674,6 +709,11 @@
        (setq org-tree-slide-deactivate-message "Presentation ended")
        (setq org-tree-slide-header t))
    #+END_SRC
+*** hide-mode-line
+    #+BEGIN_SRC emacs-lisp
+    (use-package hide-mode-line
+      :ensure t)
+    #+END_SRC
 ** Reveal.js
    #+BEGIN_SRC emacs-lisp
      (use-package org-re-reveal
@@ -698,7 +738,7 @@
      (use-package elfeed
        :ensure t
        :config
-       (setq elfeed-db-directory "~/shared/elfeed/elfeeddb")
+       (setq elfeed-db-directory "~/elfeeddb")
        (setq-default elfeed-search-filter "@6-months-ago "))
    #+END_SRC
 *** elfeed-dashboard
@@ -797,7 +837,7 @@
      :config
      (setq rust-format-on-save t)
      (setq indent-tabs-mode nil)
-     )
+   )
    #+END_SRC
 ** Python
 ** Magit
@@ -811,6 +851,16 @@
     (use-package yang-mode
       :ensure t)
     #+END_SRC
+** devdocs
+   #+BEGIN_SRC emacs-lisp
+   (use-package devdocs
+     :ensure t)
+   #+END_SRC
+** dumb-jump
+   #+BEGIN_SRC emacs-lisp
+   (use-package dumb-jump
+     :ensure t)
+   #+END_SRC
 * Documentation
 ** rf-mode
    #+BEGIN_SRC emacs-lisp
@@ -883,7 +933,7 @@
 * Additional config
 ** Private
    #+BEGIN_SRC emacs-lisp
-   (let ((init_priv "~/shared/init_priv.el"))
+   (let ((init_priv "~/shared/emacs/init_priv.el"))
         (when (file-exists-p init_priv)
               (load-file init_priv)))
    #+END_SRC

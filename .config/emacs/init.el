@@ -191,6 +191,10 @@
 (use-package ivy-bibtex
   :ensure t)
 
+(use-package embark
+  :ensure t
+)
+
 ;;   (use-package helm
 ;;     :ensure t
 ;;     :bind
@@ -225,9 +229,30 @@
 ;;      :init
 ;;        (vertico-mode))
 
-;;    (use-package consult
-;;      :hook (completion-list-mode . consult-preview-at-point-mode)
-;;      :init)
+(use-package consult
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :init)
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t
+  :bind (("C-S-a" . embark-act)
+        :map minibuffer-local-map
+        ("C-d" . embark-act))
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode)
+  :config
+  ;; Show Embark actions via which-key - seems not yep working!
+  (setq embark-action-indicator
+        (lambda (map)
+          (whick-key--show-keymap "Embark" map nil nil 'no-paging)
+          #'which-key--hide-popop-ignore-command)
+        embark-become-indicator embark-action-indicator))
+
+(use-package marginalia
+  :init
+  (marginalia-mode))
 
 (use-package org
   :ensure nil
@@ -483,7 +508,8 @@
     "orf" '(org-roam-node-find :which-key "find node")
     "ori" '(org-roam-node-insert :which-key "insert node")
     ;;"b" '(:ignore t :which-key "buffers")
-    "bb" '(counsel-switch-buffer :which-key "switch-buffer")
+    "bb" '(consult-buffer :which-key "switch-buffer")
+    ;;"bb" '(counsel-switch-buffer :which-key "switch-buffer")
     ;;"bb" '(helm-buffers-list :which-key "switch-buffer")
     "bn" '(next-buffer :which-key "next buffer")
     "bp" '(previous-buffer :whick-key "previuos-buffer")
@@ -492,17 +518,20 @@
     "f" '(:ignore t: :which-key "files")
     "ff" '(counsel-find-file :which-key "find")
     ;;"ff" '(helm-find-files :which-key "find")
-    "fr" '(counsel-recentf :which-key "recent")
+    "fr" '(consult-recent-file :whick-key "recent")
+    ;;"fr" '(counsel-recentf :which-key "recent")
     "g" '(:ignore t: :which-key "magit")
     "gs" '(magit-status :which-key "status")
     "l" '(:ignore t: :which-key "links")
     "ll" '(link-hint-open-link-at-point :which-key "open link")
     "lo" '(link-hint-open-link :which-key "show links")
     "s" '(:ignore t: :which-key "search")
-    "ss" '(swiper :whick-key "swiper")
+    "ss" '(consult-line :which-key "lines")
+    ;;"ss" '(swiper :whick-key "swiper")
     "sd" '(deft :which-key "deft")
     "sr" '(helm-org-rifle :which-key "rifle")
-    "sR" '(helm-org-rifle-directories :which-key "rifle dir")
+    "sR" '(helm-org-rifle-directories :which-key "rifle-dir")
+    "sg" '(consult-ripgrep :which-key "ripgrep")
     ;;"ss" '(helm-swoop :whick-key "swoop")
     "w" '(:ignore t :which-key "windows")
     "w/" '(split-window-right :which-key "split-right")
@@ -548,6 +577,9 @@
   (setq org-tree-slide-deactivate-message "Presentation ended")
   (setq org-tree-slide-header t))
 
+(use-package hide-mode-line
+  :ensure t)
+
 (use-package org-re-reveal
   :ensure t
   :config
@@ -564,7 +596,7 @@
 (use-package elfeed
   :ensure t
   :config
-  (setq elfeed-db-directory "~/shared/elfeed/elfeeddb")
+  (setq elfeed-db-directory "~/elfeeddb")
   (setq-default elfeed-search-filter "@6-months-ago "))
 
 (use-package elfeed-dashboard
@@ -633,12 +665,18 @@
   :config
   (setq rust-format-on-save t)
   (setq indent-tabs-mode nil)
-  )
+)
 
 (use-package magit
    :ensure t)
 
 (use-package yang-mode
+  :ensure t)
+
+(use-package devdocs
+  :ensure t)
+
+(use-package dumb-jump
   :ensure t)
 
 (use-package rfc-mode
@@ -699,30 +737,10 @@
 (use-package xresources-theme
   :ensure t)
 
-(let ((init_priv "~/shared/init_priv.el"))
+(let ((init_priv "~/shared/emacs/init_priv.el"))
      (when (file-exists-p init_priv)
            (load-file init_priv)))
 
 (let ((init_work "~/work/init_work.el"))
      (when (file-exists-p init_work)
            (load-file init_work)))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-minibuffer-history-key "M-p")
- '(package-selected-packages
-   '(ivy-bibtex yang-mode xresources-theme which-key use-package unicode-fonts undo-fu rust-mode rfc-mode ranger rainbow-mode page-break-lines org-tree-slide org-superstar org-super-agenda org-roam-ui org-roam-bibtex org-re-reveal org-journal org-gcal org-download org-alert org-ac ob-rust mu4e-alert magit link-hint ivy-rich ivy-prescient helm-org-rifle general flycheck evil-tutor evil-org evil-nerd-commenter evil-goggles evil-commentary evil-collection emojify elfeed-org elfeed-goodies elfeed-dashboard doom-themes doom-modeline dired-single deft dashboard counsel command-log-mode beacon all-the-icons-ivy all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-goggles-change-face ((t (:inherit diff-removed))))
- '(evil-goggles-delete-face ((t (:inherit diff-removed))))
- '(evil-goggles-paste-face ((t (:inherit diff-added))))
- '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
- '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
- '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
- '(evil-goggles-yank-face ((t (:inherit diff-changed)))))
