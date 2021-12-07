@@ -311,7 +311,6 @@
   (latex . t)
  ;; (asymptote . t)
   (rust . t)
-  (latex . t)
   (dot . t)
   ))
 (setq org-confirm-babel-evaluate nil)
@@ -640,6 +639,9 @@
 
 (setq-default indent-tabs-mode nil)
 
+(use-package tex
+  :ensure auctex)
+
 (use-package link-hint
   :ensure t)
 
@@ -744,3 +746,23 @@
 (let ((init_work "~/work/init_work.el"))
      (when (file-exists-p init_work)
            (load-file init_work)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-minibuffer-history-key "M-p")
+ '(package-selected-packages
+   '(auctex yang-mode xresources-theme which-key use-package unicode-fonts undo-fu rust-mode rfc-mode ranger rainbow-mode page-break-lines ox-hugo org-tree-slide org-superstar org-super-agenda org-roam-ui org-roam-bibtex org-re-reveal org-journal org-gcal org-download org-alert org-ac ob-rust mu4e-alert marginalia magit link-hint ivy-rich ivy-prescient ivy-bibtex hide-mode-line helm-org-rifle general flycheck evil-tutor evil-org evil-nerd-commenter evil-goggles evil-collection emojify embark-consult elfeed-org elfeed-goodies elfeed-dashboard dumb-jump doom-themes doom-modeline dired-single devdocs deft dashboard counsel command-log-mode beacon all-the-icons-ivy all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-goggles-change-face ((t (:inherit diff-removed))))
+ '(evil-goggles-delete-face ((t (:inherit diff-removed))))
+ '(evil-goggles-paste-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
+ '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
+ '(evil-goggles-yank-face ((t (:inherit diff-changed)))))

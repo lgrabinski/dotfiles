@@ -384,7 +384,6 @@
        (latex . t)
       ;; (asymptote . t)
        (rust . t)
-       (latex . t)
        (dot . t)
        ))
      (setq org-confirm-babel-evaluate nil)
@@ -800,6 +799,13 @@
    #+BEGIN_SRC emacs-lisp
    (setq-default indent-tabs-mode nil)
    #+END_SRC
+** LaTeX
+*** auctex
+    #+BEGIN_SRC emacs-lisp
+    (use-package tex
+      :ensure auctex)
+    #+END_SRC
+
 * Scrolling and browsing
   #+BEGIN_SRC emacs-lisp
   (use-package link-hint
