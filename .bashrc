@@ -2,6 +2,9 @@
 # ~/.bashrc
 #
 
+[[ $- == *i* ]] && source /usr/share/blesh/ble.sh --noattach
+[[ ${BLE_VERSION-} ]] && ble-attach
+
 # PATHS
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -33,3 +36,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # nnn related
 export NNN_PLUG='c:fzcd;f:finder;i:imgview;p:preview-tabbed;o:fzopen;w:wallpaper'
 export NNN_FIFO='/tmp/nnn.fifo'
+
+
+# History
+export HISTSIZE=100000

@@ -1,5 +1,5 @@
 #!/bin/bash
-kernel=$(uname -r)
+kernel=$(uname -r | cut -d'-' -f1)
 echo " $kernel"
 
 case $BLOCK_BUTTON in
