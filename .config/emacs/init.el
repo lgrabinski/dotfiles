@@ -122,60 +122,60 @@
 (use-package rainbow-mode
   :ensure t)
 
-(use-package ivy 
-  :ensure t
-  :diminish
-  :bind (("C-s" . swiper)
-       :map ivy-minibuffer-map
-       ("TAB" . ivy-alt-done)
-       ("C-l" . ivy-alt-done)
-       ("C-j" . ivy-next-line)
-       ("C-k" . ivy-previous-line)
-       :map ivy-switch-buffer-map
-       ("C-k" . ivy-previous-line)
-       ("C-l" . ivy-done)
-       ("C-d" . ivy-switch-buffer-kill)
-       :map ivy-reverse-i-search-map
-       ("C-k" . ivy-previous-line)
-       ("C-d" . ivy-reverse-i-search-kill))
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t))
+;;   (use-package ivy 
+;;     :ensure t
+;;     :diminish
+;;     :bind (("C-s" . swiper)
+;;          :map ivy-minibuffer-map
+;;          ("TAB" . ivy-alt-done)
+;;          ("C-l" . ivy-alt-done)
+;;          ("C-j" . ivy-next-line)
+;;          ("C-k" . ivy-previous-line)
+;;          :map ivy-switch-buffer-map
+;;          ("C-k" . ivy-previous-line)
+;;          ("C-l" . ivy-done)
+;;          ("C-d" . ivy-switch-buffer-kill)
+;;          :map ivy-reverse-i-search-map
+;;          ("C-k" . ivy-previous-line)
+;;          ("C-d" . ivy-reverse-i-search-kill))
+;;     :config
+;;     (ivy-mode 1)
+;;     (setq ivy-use-virtual-buffers t))
+;;
+;;     (use-package ivy-rich
+;;       :ensure t
+;;       :init
+;;       (ivy-rich-mode 1)
+;;       :after counsel
+;;       :config
+;;       (setq ivy-rich-path-style 'abbred)
+;;       (setq ivy-rich-project-root-cache-mode 1))
+;;
+;;     (use-package counsel
+;;       :ensure t
+;;       :bind (("M-b" . counsel-switch-buffer)
+;;              ("M-x" . counsel-M-x)
+;;              ("C-x C-f" . counsel-find-file)
+;;              :map minibuffer-local-map
+;;              ("C-r" . 'counsel-minibuffer-history))
+;;       :custom
+;;       (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+;;       :config
+;;       (counsel-mode 1))
+;;
+;;       (use-package all-the-icons-ivy
+;;         :ensure t
+;;         :init
+;;         (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
+;;         :config
+;;         (setq all-the-icons-ivy-buffer-commands '()))
 
-  (use-package ivy-rich
-    :ensure t
-    :init
-    (ivy-rich-mode 1)
-    :after counsel
-    :config
-    (setq ivy-rich-path-style 'abbred)
-    (setq ivy-rich-project-root-cache-mode 1))
-
-  (use-package counsel
-    :ensure t
-    :bind (("M-b" . counsel-switch-buffer)
-           ("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           :map minibuffer-local-map
-           ("C-r" . 'counsel-minibuffer-history))
-    :custom
-    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-    :config
-    (counsel-mode 1))
-
-    (use-package all-the-icons-ivy
-      :ensure t
-      :init
-      (add-hook 'after-init-hook 'all-the-icons-ivy-setup)
-      :config
-      (setq all-the-icons-ivy-buffer-commands '()))
-
-(use-package ivy-prescient
-   :after counsel
-   :custom
-   (ivy-prescient-enable-filtering nil)
-   :config
-   (ivy-prescient-mode 1))
+;;   (use-package ivy-prescient
+;;      :after counsel
+;;      :custom
+;;      (ivy-prescient-enable-filtering nil)
+;;      :config
+;;      (ivy-prescient-mode 1))
 
 ;;      (use-package ivy-posframe
 ;;        :ensure t
@@ -188,8 +188,8 @@
 ;;          (ivy-posframe-mode 1)
 ;;      )
 
-(use-package ivy-bibtex
-  :ensure t)
+;;      (use-package ivy-bibtex
+;;        :ensure t)
 
 (use-package embark
   :ensure t
@@ -225,9 +225,13 @@
   (setq deft-extensions '("org" "md"))
 )
 
-;;    (use-package vertico
-;;      :init
-;;        (vertico-mode))
+(use-package vertico
+  :init
+  (vertico-mode)
+  :bind (:map vertico-map
+      ("C-j" . vertico-next)
+      ("C-k" . vertico-previous)
+      ("C-f" . vertico-exit)))
 
 (use-package consult
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -403,6 +407,10 @@
 ;;  (evil-commentary-mode)
 ;;)
 
+(use-package evil-nerd-commenter
+  :ensure t
+  :init
+  (evilnc-default-hotkeys))
 (use-package evil-nerd-commenter
   :ensure t
   :init
