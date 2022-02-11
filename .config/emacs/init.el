@@ -226,12 +226,22 @@
 )
 
 (use-package vertico
+  :ensure t
   :init
-  (vertico-mode)
+    (vertico-mode)
   :bind (:map vertico-map
-      ("C-j" . vertico-next)
-      ("C-k" . vertico-previous)
-      ("C-f" . vertico-exit)))
+    ("C-j" . vertico-next)
+    ("C-k" . vertico-previous)
+    ("C-f" . vertico-exit))
+)
+
+(use-package orderless 
+  :ensure t
+  :init
+    (setq completion-styles '(orderless)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles partial-completion))))
+)
 
 (use-package consult
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -497,7 +507,7 @@
   :global-prefix "C-SPC")
 
   (sy/leader-keys
-    "SPC" '(counsel-M-x :whick-key "M-x")
+    ;;"SPC" '(kbd "M-x" :whick-key "M-x")
     ;;"SPC" '(helm-M-x :whick-key "M-x")
     "a" '(:ignore t :which-key "applications")
     "ad" '(dired :whick-key "dired")
