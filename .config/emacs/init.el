@@ -1,3 +1,15 @@
+;; -*- lexical-binding: t; -*-
+
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; Profile emacs startup
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "*** Emacs loaded in %s seconds with %d garbage collections."
+                     (emacs-init-time "%.2f")
+                    gcs-done)))
+
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -61,9 +73,9 @@
 (pcase system-type
   ('gnu/linux
    ;;(load-theme 'xresources t))
-   (load-theme 'doom-palenight t))
+   (load-theme 'doom-nord t))
   ('windows-nt
-   (load-theme 'doom-palenight t)))
+   (load-theme 'doom-nord t)))
 
 ;;(load-theme 'doom-palenight t)
 ;;(load-theme 'doom-badger t)
@@ -81,9 +93,9 @@
   :ensure t
   :config
   (beacon-mode 1)
-  (setq beacon-color "#00ff00"))
+  (setq beacon-color "#ff0000"))
 
-(set-cursor-color "#00ff00")
+(set-cursor-color "#ff0000")
 
 (use-package evil-goggles
   :ensure t
@@ -267,6 +279,22 @@
 (use-package marginalia
   :init
   (marginalia-mode))
+
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-auto t)
+  :init   
+  (corfu-global-mode)
+)
+
+(use-package all-the-icons-completion
+  :ensure t
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode)
+)
 
 (use-package org
   :ensure nil
@@ -516,7 +544,8 @@
     ;;"am" '(mu4e :which-key "mu4e")
     ;; Above line moved to emacs_init_priv.org not shared on github
     "t" '(:ignore t :which-key "toggles")
-    "tt" '(counsel-load-theme :which-key "choose theme")
+    "tt" '(consult-theme :which-key "choose theme")
+    ;;"tt" '(counsel-load-theme :which-key "choose theme")
     ;;"tt" '(load-theme :whick-key "choose theme")
     "o" '(:ignore t :which-key "org-mode")
     "oa" '(org-agenda :whick-key "org-agenda")
@@ -546,6 +575,7 @@
     "ss" '(consult-line :which-key "lines")
     ;;"ss" '(swiper :whick-key "swiper")
     "sd" '(deft :which-key "deft")
+    "sh" '(consult-org-heading :which-key "org-heading")
     "sr" '(helm-org-rifle :which-key "rifle")
     "sR" '(helm-org-rifle-directories :which-key "rifle-dir")
     "sg" '(consult-ripgrep :which-key "ripgrep")
@@ -643,14 +673,14 @@
 (use-package ranger
   :ensure t)
 
-(use-package mu4e-alert
-  :ensure t
-  :hook
-    (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
-  :config
-    (setq mu4e-alert-set-default-style 'libnotify
-          mu4e-alert-email-notification-types '(count))
-)
+;; (use-package mu4e-alert
+;;   :ensure t
+;;   :hook
+ ;;    (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+;;   :config
+;;     (setq mu4e-alert-set-default-style 'libnotify
+;;           mu4e-alert-email-notification-types '(count))
+;; )
 
 (setq-default tab-width 2)
 (setq-default evil-shift-with tab-width)
@@ -736,23 +766,23 @@
 ;;	:ensure t)
 ;;(require 'ox-reveal)
 
-(add-hook 'emacs-startup-hook
-  (lambda ()
-    (message "Emacs ready in %s with %d garbage collections."
-      (format "%.2f seconds"
-        (float-time
-          (time-subtract after-init-time before-init-time)))
-                         gcs-done)))
+;;(add-hook 'emacs-startup-hook
+;;  (lambda ()
+;;    (message "Emacs ready in %s with %d garbage collections."
+;;      (format "%.2f seconds"
+;;        (float-time
+;;          (time-subtract after-init-time before-init-time)))
+;;                         gcs-done)))
 
 
 ;; Make startup faster by reducing the frequency of garbage
 ;; collection.  The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+;;(setq gc-cons-threshold (* 50 1000 1000))
 
 ;; The rest of the init file.
 
 ;; Make gc pauses faster by decreasing the threshold.
-(setq gc-cons-threshold (* 2 1000 1000))
+;;(setq gc-cons-threshold (* 2 1000 1000))
 
 (use-package xresources-theme
   :ensure t)
