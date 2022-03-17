@@ -729,6 +729,15 @@
 (use-package dumb-jump
   :ensure t)
 
+(use-package yasnippet
+  :demand t
+  ;;:bind ("M-z" . yas-expand)
+  :config
+  (setq yas-snippet-dirs '("~/shared/snippets"
+                           "~/work/snippets/"))
+  (yas-global-mode 1)
+)
+
 (use-package rfc-mode
   :ensure t
   :config
