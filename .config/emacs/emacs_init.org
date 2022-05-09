@@ -445,8 +445,10 @@
    #+END_SRC
 *** ob-rust
     #+BEGIN_SRC emacs-lisp
-      (use-package ob-rust
-        :ensure t)
+    (use-package ob-rust
+      :ensure t
+      :after (org-mode)
+    )
     #+END_SRC
 ** org-download
    #+BEGIN_SRC emacs-lisp
@@ -629,7 +631,7 @@
 *** org-roam-bibtex
     #+BEGIN_SRC emacs-lisp
     (use-package org-roam-bibtex
-      :after org-roam
+      :after (org-roam org-ref)
       :config
       (require 'org-ref))
     #+END_SRC
@@ -652,6 +654,12 @@
      :config
        (setq alert-default-style 'libnotify)
              org-alert-interval 30)
+   #+END_SRC
+** org-ref
+   #+BEGIN_SRC emacs-lisp
+   (use-package org-ref
+     :ensure t
+   )
    #+END_SRC
 * Key bindings
 ** Which-key
@@ -879,6 +887,16 @@
      :init
      (global-flycheck-mode))
    #+END_SRC
+*** flycheck-rust
+    #+BEGIN_SRC emacs-lisp
+    (use-package flycheck-rust  
+      :ensure t
+    )
+    #+END_SRC
+*** flycheck-pyflakes
+    #+BEGIN_SRC emacs-lisp
+
+    #+END_SRC
 ** Auto-complete
    #+BEGIN_SRC emacs-lisp
    (use-package auto-complete

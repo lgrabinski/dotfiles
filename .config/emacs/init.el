@@ -358,7 +358,9 @@
 (setq org-confirm-babel-evaluate nil)
 
 (use-package ob-rust
-  :ensure t)
+  :ensure t
+  :after (org-mode)
+)
 
 (use-package org-download
   :ensure t
@@ -503,7 +505,7 @@
 ;;  :ensure t
 
 (use-package org-roam-bibtex
-  :after org-roam
+  :after (org-roam org-ref)
   :config
   (require 'org-ref))
 
@@ -520,6 +522,10 @@
   :config
     (setq alert-default-style 'libnotify)
           org-alert-interval 30)
+
+(use-package org-ref
+  :ensure t
+)
 
 (use-package which-key
   :init (which-key-mode)
@@ -697,6 +703,12 @@
   :ensure t
   :init
   (global-flycheck-mode))
+
+(use-package flycheck-rust  
+  :ensure t
+)
+
+
 
 (use-package auto-complete
   :ensure t
