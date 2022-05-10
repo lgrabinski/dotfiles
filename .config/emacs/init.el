@@ -285,7 +285,8 @@
   :custom
   (corfu-auto t)
   :init   
-  (corfu-global-mode)
+  ;;(corfu-global-mode)
+  (global-corfu-mode)
 )
 
 (use-package all-the-icons-completion

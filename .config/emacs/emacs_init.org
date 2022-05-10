@@ -346,13 +346,14 @@
   #+END_SRC
 *** Corfu
     #+BEGIN_SRC emacs-lisp
-    (use-package corfu
-      :ensure t
-      :custom
-      (corfu-auto t)
-      :init   
-      (corfu-global-mode)
-    )
+      (use-package corfu
+        :ensure t
+        :custom
+        (corfu-auto t)
+        :init   
+        ;;(corfu-global-mode)
+        (global-corfu-mode)
+      )
     #+END_SRC
 *** All the icons completion
     #+BEGIN_SRC emacs-lisp
