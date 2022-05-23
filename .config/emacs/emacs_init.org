@@ -65,6 +65,10 @@
 ;;   (setq package-enable-at-startup nil)
 ;;   (setq straight-use-package-by-default nil)
    #+END_SRC
+* Default coding system
+  #+BEGIN_SRC emacs-lisp
+  (set-default-coding-systems 'utf-8)
+  #+END_SRC
 * UI - User Interface tweaks
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-message t)
@@ -365,6 +369,13 @@
       (all-the-icons-completion-mode)
     )
     #+END_SRC
+* Bibliography
+** bibtex-mode
+   #+BEGIN_SRC emacs-lisp
+     (setq bibtex-dialect 'biblatex)
+     (setq bib-files-directory (directory-files
+                                (concat (getenv "HOME") "/shared/bibliography") t "^[A-Z|a-z].+bib$"))
+   #+END_SRC
 * Org-mode 
 ** Basic
    #+BEGIN_SRC emacs-lisp
@@ -429,6 +440,13 @@
     ;;  (org-bullets-bullet-list '("◉" "○" "✸" "✿" "○" "▷" "⁖")))
    #+END_SRC
 
+** ob-rust
+    #+BEGIN_SRC emacs-lisp
+    (use-package ob-rust
+      :ensure t
+      :after (org-mode)
+    )
+    #+END_SRC
 ** org-babel
    #+BEGIN_SRC emacs-lisp
      (org-babel-do-load-languages
@@ -444,13 +462,6 @@
        ))
      (setq org-confirm-babel-evaluate nil)
    #+END_SRC
-*** ob-rust
-    #+BEGIN_SRC emacs-lisp
-    (use-package ob-rust
-      :ensure t
-      :after (org-mode)
-    )
-    #+END_SRC
 ** org-download
    #+BEGIN_SRC emacs-lisp
    (use-package org-download
@@ -662,6 +673,15 @@
      :ensure t
    )
    #+END_SRC
+** citar
+   A completing-read fron-end to browse and acto on BibTeX, BibLatex and CSL JSON bibliographic data etc
+   #+BEGIN_SRC emacs-lisp
+     (use-package citar
+       :ensure t
+       :custom
+       (citar-bibliography '("~/shared/bibliography/references.bib"))
+     )
+   #+END_SRC
 * Key bindings
 ** Which-key
    #+BEGIN_SRC emacs-lisp
@@ -806,7 +826,7 @@
      (use-package elfeed
        :ensure t
        :config
-       (setq elfeed-db-directory "~/elfeeddb")
+       (setq elfeed-db-directory "~/shared/elfeeddb")
        (setq-default elfeed-search-filter "@6-months-ago "))
    #+END_SRC
 *** elfeed-dashboard
@@ -1030,7 +1050,7 @@
 ** Private
    #+BEGIN_SRC emacs-lisp
    (let ((init_priv "~/shared/emacs/init_priv.el"))
-        (when (file-exists-p init_priv)
+       (when (file-exists-p init_priv)
               (load-file init_priv)))
    #+END_SRC
 ** Work

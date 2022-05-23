@@ -45,6 +45,8 @@
 ;;   (setq package-enable-at-startup nil)
 ;;   (setq straight-use-package-by-default nil)
 
+(set-default-coding-systems 'utf-8)
+
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)
@@ -297,6 +299,10 @@
   (all-the-icons-completion-mode)
 )
 
+(setq bibtex-dialect 'biblatex)
+(setq bib-files-directory (directory-files
+                           (concat (getenv "HOME") "/shared/bibliography") t "^[A-Z|a-z].+bib$"))
+
 (use-package org
   :ensure nil
   :config
@@ -345,6 +351,11 @@
  ;;  :custom
  ;;  (org-bullets-bullet-list '("◉" "○" "✸" "✿" "○" "▷" "⁖")))
 
+(use-package ob-rust
+  :ensure t
+  :after (org-mode)
+)
+
 (org-babel-do-load-languages
   'org-babel-load-languages
   '((emacs-lisp . t)
@@ -357,11 +368,6 @@
   (dot . t)
   ))
 (setq org-confirm-babel-evaluate nil)
-
-(use-package ob-rust
-  :ensure t
-  :after (org-mode)
-)
 
 (use-package org-download
   :ensure t
@@ -528,6 +534,12 @@
   :ensure t
 )
 
+(use-package citar
+  :ensure t
+  :custom
+  (citar-bibliography '("~/shared/bibliography/references.bib"))
+)
+
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
@@ -650,7 +662,7 @@
 (use-package elfeed
   :ensure t
   :config
-  (setq elfeed-db-directory "~/elfeeddb")
+  (setq elfeed-db-directory "~/shared/elfeeddb")
   (setq-default elfeed-search-filter "@6-months-ago "))
 
 (use-package elfeed-dashboard
@@ -810,7 +822,7 @@
   :ensure t)
 
 (let ((init_priv "~/shared/emacs/init_priv.el"))
-     (when (file-exists-p init_priv)
+    (when (file-exists-p init_priv)
            (load-file init_priv)))
 
 (let ((init_work "~/work/init_work.el"))
