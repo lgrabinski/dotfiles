@@ -1,14 +1,14 @@
 ;; -*- lexical-binding: t; -*-
 
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+ ;; The default is 800 kilobytes.  Measured in bytes.
+;; (setq gc-cons-threshold (* 50 1000 1000))
 
-;; Profile emacs startup
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "*** Emacs loaded in %s seconds with %d garbage collections."
-                     (emacs-init-time "%.2f")
-                    gcs-done)))
+ ;; Profile emacs startup
+ ;;(add-hook 'emacs-startup-hook
+   ;;        (lambda ()
+     ;;        (message "*** Emacs loaded in %s seconds with %d garbage collections."
+       ;;               (emacs-init-time "%.2f")
+         ;;            gcs-done)))
 
 (require 'package)
 
@@ -522,6 +522,13 @@
 
 (use-package org-journal
   :ensure t
+  :defer t
+  :config
+  (setq org-journal-dir "~/shared/notes/journals"
+        org-journal-date-format "%Y_%m_%d"
+        org-journal-file-type 'monthly
+        org-journal-file-format "%Y_%m.org"
+  )
 )
 
 (use-package org-alert
