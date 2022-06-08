@@ -29,6 +29,7 @@ Plug 'dracula/vim',{'ac':'dracula'}
 Plug 'sheerun/vim-polyglot'
 " Plug 'kristijanhusak/orgmode.nvim'
 Plug 'nvim-neorg/neorg'
+Plug 'akinsho/org-bullets.nvim'
 Plug 'nekonako/xresources-nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'liuchengxu/vim-clap'
@@ -69,3 +70,9 @@ let mapleader="\<SPACE>"
 "map <leader>ff :Telescope fine_files<CR>
 nnoremap <silent> <leader>ff :Telescope find_files<CR>
 nnoremap <silent> <leader>fr :Telescope oldfiles<CR>
+
+
+" =========================
+" GUI related configuration
+" =========================
+set guifont=Hack\ Nerd\ Font:h14
