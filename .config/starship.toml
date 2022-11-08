@@ -1,0 +1,42 @@
+# ~/.config/startship.toml
+
+# Use custom format
+format = """
+$username \\[\
+$directory\\]\
+$rust\
+$package\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$fill\
+$time\
+$line_break\
+$shell\
+$character"""
+
+[character]
+success_symbol = "[➜](bold green) "
+error_symbol = "[✗](bold red) "
+vicmd_symbol = "[❮](bold green)"
+
+[username]
+show_always = true
+format = "[$user]($style)"
+
+[fill]
+symbol = " "
+
+[shell]
+disabled = false
+
+[time]
+disabled = false
+format = "[$time]($style)"
+time_format = "wk%V %H:%M:%SS"
+
+[directory]
+truncation_length = 8
+truncation_symbol = "../"
+format = "[$path]($style)[$read_only]($read_only_style)"
