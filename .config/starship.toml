@@ -1,6 +1,9 @@
 # ~/.config/startship.toml
 
 # Use custom format
+#right_format = """
+#$time"""
+
 format = """
 $username \\[\
 $directory\\]\
@@ -34,7 +37,8 @@ disabled = false
 [time]
 disabled = false
 format = "[$time]($style)"
-time_format = "wk%V %H:%M:%SS"
+time_format = "wk%V %H:%M:%S  "
+#time_format = "%H:%M wk%V" 
 
 [directory]
 truncation_length = 8
