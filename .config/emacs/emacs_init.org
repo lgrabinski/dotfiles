@@ -99,9 +99,9 @@
     (pcase system-type
       ('gnu/linux
        ;;(load-theme 'xresources t))
-       (load-theme 'doom-nord t))
+       (load-theme 'doom-badger t))
       ('windows-nt
-       (load-theme 'doom-nord t)))
+       (load-theme 'doom-badger t)))
 
     ;;(load-theme 'doom-palenight t)
     ;;(load-theme 'doom-badger t)
@@ -1008,46 +1008,43 @@
 * Others
 
   #+BEGIN_SRC emacs-lisp
-  (use-package command-log-mode)
+    (use-package command-log-mode)
 
-  (use-package all-the-icons)
+    (use-package all-the-icons)
 
-  (use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1)
-    :config
-    (setq doom-modeline-height 22
-          doom-modeline-minor-modes nil)
-  )
-        
-  ;;(use-package spaceline
-  ;;  :ensure t
-  ;;  :config
-  ;;  (spaceline-spacemacs-theme))
+    (use-package doom-modeline
+      :ensure t
+      :hook (after-init . doom-modeline-mode)
+    )
 
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+    ;;(use-package spaceline
+    ;;  :ensure t
+    ;;  :config
+    ;;  (spaceline-spacemacs-theme))
 
-  ;;(use-package ox-reveal
-  ;;	:ensure t)
-  ;;(require 'ox-reveal)
+    (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-  ;;(add-hook 'emacs-startup-hook
-  ;;  (lambda ()
-  ;;    (message "Emacs ready in %s with %d garbage collections."
-  ;;      (format "%.2f seconds"
-  ;;        (float-time
-  ;;          (time-subtract after-init-time before-init-time)))
-  ;;                         gcs-done)))
+    ;;(use-package ox-reveal
+    ;;	:ensure t)
+    ;;(require 'ox-reveal)
+
+    ;;(add-hook 'emacs-startup-hook
+    ;;  (lambda ()
+    ;;    (message "Emacs ready in %s with %d garbage collections."
+    ;;      (format "%.2f seconds"
+    ;;        (float-time
+    ;;          (time-subtract after-init-time before-init-time)))
+    ;;                         gcs-done)))
 
 
-  ;; Make startup faster by reducing the frequency of garbage
-  ;; collection.  The default is 800 kilobytes.  Measured in bytes.
-  ;;(setq gc-cons-threshold (* 50 1000 1000))
+    ;; Make startup faster by reducing the frequency of garbage
+    ;; collection.  The default is 800 kilobytes.  Measured in bytes.
+    ;;(setq gc-cons-threshold (* 50 1000 1000))
 
-  ;; The rest of the init file.
+    ;; The rest of the init file.
 
-  ;; Make gc pauses faster by decreasing the threshold.
-  ;;(setq gc-cons-threshold (* 2 1000 1000))
+    ;; Make gc pauses faster by decreasing the threshold.
+    ;;(setq gc-cons-threshold (* 2 1000 1000))
   #+END_SRC
 
 #+BEGIN_SRC emacs-lisp

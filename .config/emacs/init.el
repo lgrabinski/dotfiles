@@ -75,9 +75,9 @@
 (pcase system-type
   ('gnu/linux
    ;;(load-theme 'xresources t))
-   (load-theme 'doom-nord t))
+   (load-theme 'doom-badger t))
   ('windows-nt
-   (load-theme 'doom-nord t)))
+   (load-theme 'doom-badger t)))
 
 ;;(load-theme 'doom-palenight t)
 ;;(load-theme 'doom-badger t)
@@ -791,10 +791,7 @@
 
 (use-package doom-modeline
   :ensure t
-  :init (doom-modeline-mode 1)
-  :config
-  (setq doom-modeline-height 22
-        doom-modeline-minor-modes nil)
+  :hook (after-init . doom-modeline-mode)
 )
 
 ;;(use-package spaceline
