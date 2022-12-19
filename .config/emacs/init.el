@@ -76,11 +76,11 @@
   ('gnu/linux
    ;;(load-theme 'xresources t))
    (load-theme 'doom-badger t)
-   (load-theme 'doom-city-lights)
+   (load-theme 'doom-city-lights t)
    )
   ('windows-nt
    ;;(load-theme 'doom-badger t)
-   (load-theme 'doom-city-lights)
+   (load-theme 'doom-city-lights t)
    ))
 
 ;;(load-theme 'doom-palenight t)
