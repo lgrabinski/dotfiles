@@ -75,12 +75,14 @@
 (pcase system-type
   ('gnu/linux
    ;;(load-theme 'xresources t))
-   (load-theme 'doom-badger t)
+   ;;(load-theme 'doom-badger t)
    (load-theme 'doom-city-lights t)
+   ;;(load-theme 'catppuccin)
    )
   ('windows-nt
    ;;(load-theme 'doom-badger t)
-   (load-theme 'doom-city-lights t)
+   ;;(load-theme 'doom-city-lights t)
+   (load-theme 'catppuccin)
    ))
 
 ;;(load-theme 'doom-palenight t)
