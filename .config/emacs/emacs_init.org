@@ -106,7 +106,7 @@
       ('windows-nt
        ;;(load-theme 'doom-badger t)
        ;;(load-theme 'doom-city-lights t)
-       (load-theme 'catppuccin)
+       (load-theme 'catppuccin t)
        ))
 
     ;;(load-theme 'doom-palenight t)
