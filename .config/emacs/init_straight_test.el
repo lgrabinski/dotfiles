@@ -27,3 +27,38 @@
 
 (use-package evil-commentary
   :straight t)
+
+(use-package vertico
+    :straight t
+    :init
+    (vertico-mode)
+    :bind (:map vertico-map
+        ("C-j" . vertico-next)
+        ("C-k" . vertico-previous)
+        ("C-f" . vertico-exit)))
+
+(use-package marginalia
+    :init
+    (marginalia-mode))
+
+(use-package corfu
+    :straight t
+    :custom
+    (corfu-auto t)
+    :init
+    (global-corfu-mode))
+
+(use-package doom-modeline
+    :straight t
+    :hook (after-init . doom-modeline-mode))
+
+
+(use-package all-the-icons
+    :straight t)
+
+(use-package doom-themes
+    :straight t
+    :config
+    (setq doom-themes-enable-bold nil
+          doom-themes-enable-italic t)
+    (load-theme 'doom-one t))
