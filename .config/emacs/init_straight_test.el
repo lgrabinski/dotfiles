@@ -71,3 +71,5 @@
   ('windows-nt 
    (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
 
+(use-package nerd-icons
+    :straight t)
