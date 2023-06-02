@@ -62,3 +62,12 @@
     (setq doom-themes-enable-bold nil
           doom-themes-enable-italic t)
     (load-theme 'doom-one t))
+
+;; font face base on platform type
+(pcase system-type
+  ((or 'gnu/linux 'cygwin)
+   (set-face-attribute 'default nil :font "Fira Code Retina" :height 85))
+   ;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 60 :weight 'bold))
+  ('windows-nt 
+   (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
+
