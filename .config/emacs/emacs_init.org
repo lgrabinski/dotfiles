@@ -1,28 +1,13 @@
 * Packages source initialization
 ** straight.el
-#+BEGIN_SRC emacs-lisp
-  (setq package-enable-at-startup nil)
-
-  (defvar bootstrap-version)
-  (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-  (straight-use-package 'use-package)
-   
-  (setq straight-use-package-by-default t)
-#+END_SRC
+   Straight.el moved to init.el due to org-mode version initialization sequence etc.
+* Default coding system
+  #+BEGIN_SRC emacs-lisp
+  (set-default-coding-systems 'utf-8)
+  #+END_SRC
 * UI - User Interface tweaks
 ** Themes
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :straight t
     :config
@@ -67,7 +52,16 @@
  ;;  (dashboard-setup-startup-hook)
    )
 #+END_SRC
-
+** Icons
+*** All the icons completion
+   #+BEGIN_SRC emacs-lisp
+     (use-package all-the-icons-completion
+       :straight t
+       :after (marginalia all-the-icons)
+       :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+       :init
+       (all-the-icons-completion-mode))
+   #+END_SRC
 * Evil-mode related
 ** evil package  
 #+BEGIN_SRC emacs-lisp
@@ -128,11 +122,11 @@
 * Org-mode
 ** org-mode package
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-   :straight t
-   :config
-   (setq org-elipsis " ⬎")
-   (setq org-hide-emphasis-markers t))
+;;  (use-package org
+;;   :straight t
+;;   :config
+;;   (setq org-elipsis " ⬎")
+;;   (setq org-hide-emphasis-markers t))
 #+END_SRC
 
 ** org-babel config
