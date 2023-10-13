@@ -34,6 +34,8 @@
     (set-face-attribute 'default nil :font "Fira Code Retina" :height 85))
    ('windows-nt
     (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
+
+  (setq recentf-mode t)
 #+END_SRC
 
 ** Emacs external packages based
@@ -53,6 +55,12 @@
    )
 #+END_SRC
 ** Icons
+*** All the icons
+   #+BEGIN_SRC emacs-lisp
+   (use-package all-the-icons
+     :straight t
+   )
+   #+END_SRC
 *** All the icons completion
    #+BEGIN_SRC emacs-lisp
      (use-package all-the-icons-completion
@@ -62,6 +70,13 @@
        :init
        (all-the-icons-completion-mode))
    #+END_SRC
+** Unicode fonts
+  #+BEGIN_SRC emacs-lisp
+  (use-package unicode-fonts
+    :straight t
+    :config
+    (unicode-fonts-setup))
+  #+END_SRC
 * Evil-mode related
 ** evil package  
 #+BEGIN_SRC emacs-lisp
@@ -94,6 +109,15 @@
     ("C-k" . vertico-previous)
     ("C-f" . vertico-exit)))
 #+END_SRC
+** Orderless
+  #+BEGIN_SRC emacs-lisp
+    (use-package orderless
+      :straight t
+      :init
+      (setq completion-styles '(orderless basic)
+    	completion-category-defaults nil
+    	comletion-category-overrides '((file (styles partial-completion)))))
+  #+END_SRC
 ** marginalia package
 #+BEGIN_SRC emacs-lisp
   (use-package marginalia
@@ -116,19 +140,15 @@
   (use-package corfu
     :straight t
     :init
-    (global-corfu-mode))
+    (global-corfu-mode)
+    :config
+    (setq corfu-auto t
+  	corfu-quit-no-match 'separator)) ;; or t
 #+END_SRC
  
 * Org-mode
 ** org-mode package
-#+BEGIN_SRC emacs-lisp
-;;  (use-package org
-;;   :straight t
-;;   :config
-;;   (setq org-elipsis " ⬎")
-;;   (setq org-hide-emphasis-markers t))
-#+END_SRC
-
+   use-package and init in init.el
 ** org-babel config
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
@@ -137,7 +157,14 @@
    ))
    (setq org-confirm-babel-evaluate nil)
 #+END_SRC
-
+** org-superstar
+  #+BEGIN_SRC emacs-lisp
+  (use-package org-superstar
+    :straight t
+    :config
+    (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
+    (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+  #+END_SRC
 * Key bindings
 ** which-key package
 #+BEGIN_SRC emacs-lisp
@@ -164,16 +191,53 @@
    (lg/leader-keys
      "a" '(:ignore t :which-key "applications")
      "ad" '(dired :which-key "dired")
+     "ae" '(elfeed :which-key "elfeed")
+     "at" '(treemacs :which-key "treemacs")
      "b" '(:ignore t :which-key "buffers")
      "bb" '(consult-buffer :which-key "switch-buffers")
+     "f" '(:ignore t :which-key "files")
+     "ff" '(consult-find :wich-key "find")
+     "fr" '(consult-recent-file :which-key "recent")
      "o" '(:ignode t :which-key "org-mode")
+     "s" '(:ignore t :which-key "search")
+     "sr" '(consult-ripgrep "ripgrep")
+     "sh" '(consult-org-heading :which-key "org-heading")
+     "ss" '(consult-line :which-key "lines")
    ))
 #+END_SRC
 
 * Applications
 ** treemacs package
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   (use-package treemacs
     :straight t
   )
-#+END_SRC
+  #+END_SRC
+** Elfeed
+  #+BEGIN_SRC emacs-lisp
+  (use-package elfeed-org
+    :straight t
+    :config
+    (elfeed-org)
+    (setq rmh-elfeed-org-files
+  	(list "~/shared/elfeed/elfeed.org")))
+  #+END_SRC
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package elfeed
+      :straight t 
+      :config
+      (setq elfeed-db-directory "~/shared/elfeeddb")
+      (setq-default elfeed-search-filter "@6-months-ago ")
+      )
+  #+END_SRC
+*** Elfeed-dashboard
+   Based on elfeed-dashboard github description: https://github.com/Monoj321/elfeed-dashboard
+   #+BEGIN_SRC emacs-lisp
+     (use-package elfeed-dashboard
+       :straight t
+       :config
+       (setq elfeed-dashboard-file "~/shared/elfeed/elfeed-dashboard.org")
+       ;; update feed counts on elfeed-quit
+       (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
+   #+END_SRC
