@@ -46,14 +46,24 @@
     :hook (after-init . doom-modeline-mode))
 #+END_SRC
 
-** emacs-dashboard packge
-#+BEGIN_SRC emacs-lisp
-  (use-package dashboard
-   :straight t
- ;;  :init
- ;;  (dashboard-setup-startup-hook)
-   )
-#+END_SRC
+** emacs-dashboard package
+  #+BEGIN_SRC emacs-lisp
+    (use-package dashboard
+      :straight t
+      :config
+      (setq dashboard-items '((recents . 10)
+    			  (bookmarks . 7)
+    			  (agenda . 15)
+    			  (registers . 7)))
+      (setq dashboard-set-headings-icons t)
+      (setq dashboard-set-file-icons t)
+      (setq dashboard-startup-banner 'logo)
+      (setq dashboard-center-content t)
+      (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))) ;; this is needed to open *dashboard* buffer after startup
+      :init
+      (dashboard-setup-startup-hook)
+     )
+   #+END_SRC
 ** Icons
 *** All the icons
    #+BEGIN_SRC emacs-lisp
@@ -154,6 +164,12 @@
   (org-babel-do-load-languages
     'org-babel-load-languages
        '((emacs-lisp . t)
+         (python . t)
+         (plantuml . t)
+         (ditaa . t)
+         (latex . t)
+         ;;(rust . t)
+         (dot . t)
    ))
    (setq org-confirm-babel-evaluate nil)
 #+END_SRC
@@ -215,9 +231,14 @@
      "at" '(treemacs :which-key "treemacs")
      "b" '(:ignore t :which-key "buffers")
      "bb" '(consult-buffer :which-key "switch-buffers")
+     "bn" '(next-buffer :which-key "next-buffer")
+     "bd" '(kill-buffer :which-key "kill-buffer")
+     "bp" '(previous-buffer :which-key "previous-buffer")
      "f" '(:ignore t :which-key "files")
      "ff" '(consult-find :wich-key "find")
      "fr" '(consult-recent-file :which-key "recent")
+     "g" '(:ignore t :which-key "magit")
+     "gs" '(matit-statu :which-key "status")
      "o" '(:ignore t :which-key "org-mode")
      "or" '(:ignore t :which-key "roam")
      "orf" '(org-roam-node-find :which-key "find node")
@@ -227,6 +248,8 @@
      "sh" '(consult-org-heading :which-key "org-heading")
      "sr" '(consult-ripgrep "ripgrep")
      "ss" '(consult-line :which-key "lines")
+     "t" '(:ignore t :which-key "toggles/UI")
+     "tt" '(consult-theme :which-key "choose theme")
      "w" '(:ignore t :which-key "windows")
      "w/" '(splt-window-right :which-key "split-right")
      "wh" '(evil-window-left :which-key "left")
@@ -274,7 +297,16 @@
        ;; update feed counts on elfeed-quit
        (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
    #+END_SRC
-   
+** Dired
+  #+BEGIN_SRC emacs-lisp
+    (use-package dired
+      :straight nil)
+    (use-package dired-single
+      :straight t)
+    (use-package all-the-icons-dired
+      :straight t
+      :hook (dired-mode . all-the-icons-dired-mode))
+  #+END_SRC
 * Development
 ** Magit 
   #+BEGIN_SRC emacs-lisp
@@ -295,6 +327,21 @@
       (setq yas-snippet-dirs '("~/shared/snippets/"
     			   "~/work/snippets/")))
   #+END_SRC
+** Rust
+  #+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :straight t
+    :config
+    (setq rust-format-on-save t)
+    (setq indent-tabs-mode nil))
+  #+END_SRC
+*** ob-rust
+   #+BEGIN_SRC emacs-lisp
+   (use-package ob-rust
+     :straight t
+     :after (org-mode)
+   )
+   #+END_SRC
 * Tweaks for Windows OS 
   #+BEGIN_SRC emacs-lisp
   (pcase system-type
