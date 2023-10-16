@@ -165,6 +165,25 @@
     (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "○" "▷" "⁖"))
     (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
   #+END_SRC
+** org-roam
+  #+BEGIN_SRC emacs-lisp
+    (use-package org-roam
+      :straight t
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/pkm/content-org")
+      (org-roam-completion-everywhere t)
+      (org-roam-capture-templates
+      '(("d" "default" plain
+         "%?"
+         :if-new (file+head "${slug}.org" "#+TITLE: ${title}\n")
+         :unnarrowed t)))
+      :init
+      (setq org-roam-v2-ack t)
+      :config
+      (org-roam-setup))
+  #+END_SRC
 * Key bindings
 ** which-key package
 #+BEGIN_SRC emacs-lisp
@@ -189,6 +208,7 @@
    :global-prefix "C-SPC")
 
    (lg/leader-keys
+     "SPC" '(execute-extended-command :whick-key "M-x")
      "a" '(:ignore t :which-key "applications")
      "ad" '(dired :which-key "dired")
      "ae" '(elfeed :which-key "elfeed")
@@ -198,11 +218,24 @@
      "f" '(:ignore t :which-key "files")
      "ff" '(consult-find :wich-key "find")
      "fr" '(consult-recent-file :which-key "recent")
-     "o" '(:ignode t :which-key "org-mode")
+     "o" '(:ignore t :which-key "org-mode")
+     "or" '(:ignore t :which-key "roam")
+     "orf" '(org-roam-node-find :which-key "find node")
+     "ori" '(org-roam-node-insert :which-key "insert node")
      "s" '(:ignore t :which-key "search")
-     "sr" '(consult-ripgrep "ripgrep")
+     "sg" '(consult-ripgrep :which-key "ripgrep")
      "sh" '(consult-org-heading :which-key "org-heading")
+     "sr" '(consult-ripgrep "ripgrep")
      "ss" '(consult-line :which-key "lines")
+     "w" '(:ignore t :which-key "windows")
+     "w/" '(splt-window-right :which-key "split-right")
+     "wh" '(evil-window-left :which-key "left")
+     "wj" '(evil-window-down :which-key "down")
+     "wk" '(evil-window-up :which-key "up")
+     "wn" '(evil-window-next :which-key "next")
+     "wN" '(evil-window-new :which-key "new")
+     "wl" '(evil-window-right :which-key "right")
+     "wd" '(evil-window-delete "which-key" "delete")
    ))
 #+END_SRC
 
