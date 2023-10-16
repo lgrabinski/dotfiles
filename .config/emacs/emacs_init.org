@@ -235,7 +235,7 @@
      "wn" '(evil-window-next :which-key "next")
      "wN" '(evil-window-new :which-key "new")
      "wl" '(evil-window-right :which-key "right")
-     "wd" '(evil-window-delete "which-key" "delete")
+     "wd" '(evil-window-delete :which-key "delete")
    ))
 #+END_SRC
 
@@ -274,3 +274,48 @@
        ;; update feed counts on elfeed-quit
        (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
    #+END_SRC
+   
+* Development
+** Magit 
+  #+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :straight t)
+  #+END_SRC
+** Yang
+*** yang-mode
+   #+BEGIN_SRC emacs-lisp
+   (use-package yang-mode
+     :straight t)
+   #+END_SRC
+** YASnippet
+  #+BEGIN_SRC emacs-lisp
+    (use-package yasnippet
+      :straight t
+      :config
+      (setq yas-snippet-dirs '("~/shared/snippets/"
+    			   "~/work/snippets/")))
+  #+END_SRC
+* Tweaks for Windows OS 
+  #+BEGIN_SRC emacs-lisp
+  (pcase system-type
+    ('windows-nt
+     (setq org-plantuml-jar-path
+   	 (expand-file-name "c:/programs/plantuml.jar"))
+      (setq org-ditaa-jar-path
+   	 (expand-file-name "c:/programs/ditaa0_9.jar"))
+     ))
+  #+END_SRC
+
+* Additional config
+** Private
+  #+BEGIN_SRC emacs-lisp
+    (let ((init_priv "~/shared/emacs/init_priv.el"))
+      (when (file-exists-p init_priv)
+        (load-file init_priv)))
+  #+END_SRC
+** Work
+  #+BEGIN_SRC emacs-lisp
+    (let ((init_work "~/work/init_work.el"))
+      (when (file-exists-p init_work)
+        (load-file init_work)))
+  #+END_SRC
