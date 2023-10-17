@@ -159,6 +159,20 @@
 * Org-mode
 ** org-mode package
    use-package and init in init.el
+   #+BEGIN_SRC emacs-lisp
+   (setq org-log-done 'time)
+   #+END_SRC
+*** org-agenda
+   #+BEGIN_SRC emacs-lisp
+   (setq org-agenda-include-diary t)
+   (setq calendar-mark-holidays-flat t)
+   (setq org-agenda-files (apply 'append
+     (mapcar
+       (lambda (directory)
+         (directory-files-recursively
+          directory org-agenda-file-regexp))
+          '("~/shared/" "~/work"))))
+   #+END_SRC
 ** org-babel config
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
@@ -240,6 +254,7 @@
      "g" '(:ignore t :which-key "magit")
      "gs" '(matit-statu :which-key "status")
      "o" '(:ignore t :which-key "org-mode")
+     "oa" '(org-agenda :which-key "agenda")
      "or" '(:ignore t :which-key "roam")
      "orf" '(org-roam-node-find :which-key "find node")
      "ori" '(org-roam-node-insert :which-key "insert node")
