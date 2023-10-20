@@ -252,7 +252,7 @@
      "ff" '(consult-find :wich-key "find")
      "fr" '(consult-recent-file :which-key "recent")
      "g" '(:ignore t :which-key "magit")
-     "gs" '(matit-statu :which-key "status")
+     "gs" '(magit-status :which-key "status")
      "o" '(:ignore t :which-key "org-mode")
      "oa" '(org-agenda :which-key "agenda")
      "or" '(:ignore t :which-key "roam")
