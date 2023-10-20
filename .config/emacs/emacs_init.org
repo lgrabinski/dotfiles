@@ -336,11 +336,12 @@
    #+END_SRC
 ** YASnippet
   #+BEGIN_SRC emacs-lisp
-    (use-package yasnippet
-      :straight t
-      :config
-      (setq yas-snippet-dirs '("~/shared/snippets/"
-    			   "~/work/snippets/")))
+  (use-package yasnippet
+    :straight t
+    :config
+    (setq yas-snippet-dirs '("~/shared/snippets/"
+                             "~/work/snippets/"))
+    (yas-global-mode 1))
   #+END_SRC
 ** Rust
   #+BEGIN_SRC emacs-lisp
