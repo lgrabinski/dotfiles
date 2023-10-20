@@ -17,25 +17,26 @@
    (load-theme 'doom-one t)
 #+END_SRC
 ** Emacs core based
-#+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-message t)
+  #+BEGIN_SRC emacs-lisp
+    (setq inhibit-startup-message t)
 
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  (set-fringe-mode 10)
-  (menu-bar-mode -1)
+    (scroll-bar-mode -1)
+    (tool-bar-mode -1)
+    (tooltip-mode -1)
+    (set-fringe-mode 10)
+    (menu-bar-mode -1)
 
-  (setq visible-bell t)
+    (setq visible-bell t)
 
-  ;; font face base on platform type
-  (pcase system-type
-   ((or 'gnu/linux 'cygwin)
-    (set-face-attribute 'default nil :font "Fira Code Retina" :height 85))
-   ('windows-nt
-    (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
+    ;; font face base on platform type
+    (pcase system-type
+     ((or 'gnu/linux 'cygwin)
+      (set-face-attribute 'default nil :font "Fira Code Retina" :height 85))
+     ('windows-nt
+      (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
 
-  (setq recentf-mode t)
+    (setq recentf-mode t)
+    (set-cursor-color "#ff0000")
 #+END_SRC
 
 ** Emacs external packages based
@@ -45,7 +46,14 @@
     :straight t
     :hook (after-init . doom-modeline-mode))
 #+END_SRC
-
+*** beacon
+    #+BEGIN_SRC emacs-lisp
+    (use-package beacon
+      :straight t
+      :config
+      (beacon-mode 1)
+      (setq beacon-color "#ff0000"))
+    #+END_SRC
 ** emacs-dashboard package
   #+BEGIN_SRC emacs-lisp
     (use-package dashboard
