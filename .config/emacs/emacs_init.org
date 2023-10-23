@@ -108,10 +108,13 @@
     :init
     (setq evil-want-keybinding nil)
     (setq evil-want-C-i-jump nil)
+    (setq evil-undo-system 'undo-fu)
+    ;; More fine tuned undo configuration for evil undo system
+    (setq evil-want-fine-undo t)
     :config
     (evil-mode 1))
 #+END_SRC
-* evil-collection pacakge
+** evil-collection package
 #+BEGIN_SRC emacs-lisp
 (use-package evil-collection
   :straight t
@@ -119,7 +122,11 @@
   :config
   (evil-collection-init))
 #+END_SRC
-
+** undo-fu
+  #+BEGIN_SRC emacs-lisp
+    (use-package undo-fu
+      :straight t)
+  #+END_SRC
 * Incremental completion, searching, selecting and narrowing
 ** vertico package
 #+BEGIN_SRC emacs-lisp
@@ -371,6 +378,19 @@
      :after (org-mode)
    )
    #+END_SRC
+** Programming Languages
+*** LSP - Language Server Protocol
+**** lsp-mode
+   #+BEGIN_SRC emacs-lisp
+     (use-package lsp-mode
+       :straight t
+       :commands (lsp ls-deferred)
+       :init
+       (setq lsp-keymap-prefix "C-c l")
+       :config
+       (lsp-enable-which-key-integration t))
+   #+END_SRC
+*** 
 * Tweaks for Windows OS 
   #+BEGIN_SRC emacs-lisp
   (pcase system-type
