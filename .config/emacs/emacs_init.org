@@ -88,6 +88,11 @@
        :init
        (all-the-icons-completion-mode))
    #+END_SRC
+*** Nerd icons
+    #+BEGIN_SRC emacs-lisp
+    (use-package nerd-icons
+      :straight t)
+    #+END_SRC
 ** Unicode fonts
   #+BEGIN_SRC emacs-lisp
   (use-package unicode-fonts
@@ -274,7 +279,7 @@
      "t" '(:ignore t :which-key "toggles/UI")
      "tt" '(consult-theme :which-key "choose theme")
      "w" '(:ignore t :which-key "windows")
-     "w/" '(splt-window-right :which-key "split-right")
+     "w/" '(split-window-right :which-key "split-right")
      "wh" '(evil-window-left :which-key "left")
      "wj" '(evil-window-down :which-key "down")
      "wk" '(evil-window-up :which-key "up")
