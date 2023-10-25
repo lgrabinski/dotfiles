@@ -5,18 +5,7 @@
   #+BEGIN_SRC emacs-lisp
   (set-default-coding-systems 'utf-8)
   #+END_SRC
-* UI - User Interface tweaks
-** Themes
-  #+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :straight t
-    :config
-   (setq doom-themes-enable-bold t
-         doom-enable-italic t))
-
-   (load-theme 'doom-one t)
-#+END_SRC
-** Emacs core based
+* Emacs core based
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-message t)
 
@@ -38,7 +27,26 @@
     (setq recentf-mode t)
     (set-cursor-color "#ff0000")
 #+END_SRC
+** Emacs as external editor
+*** GhostText
+**** atomic-chrome
+    #+BEGIN_SRC emacs-lisp
+    (use-package atomic-chrome
+      :straight t
+      :init
+      (atomic-chrome-start-server))
+    #+END_SRC
+* UI - User Interface tweaks
+** Themes
+  #+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+    :straight t
+    :config
+   (setq doom-themes-enable-bold t
+         doom-enable-italic t))
 
+   (load-theme 'doom-one t)
+#+END_SRC
 ** Emacs external packages based
 *** doom-modeline package
 #+BEGIN_SRC emacs-lisp
