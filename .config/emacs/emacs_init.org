@@ -60,7 +60,8 @@
       :straight t
       :config
       (beacon-mode 1)
-      (setq beacon-color "#ff0000"))
+      (setq beacon-color "#ff0000")
+      (set-cursor-color "#ff0000")) ;; needed again after beacon color set
     #+END_SRC
 ** emacs-dashboard package
   #+BEGIN_SRC emacs-lisp
@@ -108,6 +109,13 @@
     :config
     (unicode-fonts-setup))
   #+END_SRC
+** Emoji
+*** Emojify
+   #+BEGIN_SRC emacs-lisp
+   (use-package emojify
+     :straight t
+     :commands emojify-mode)
+   #+END_SRC
 * Evil-mode related
 ** evil package  
 #+BEGIN_SRC emacs-lisp
@@ -241,6 +249,11 @@
       (setq org-roam-v2-ack t)
       :config
       (org-roam-setup))
+  #+END_SRC
+** org-sidebar
+  #+BEGIN_SRC emacs-lisp
+  (use-package org-sidebar
+    :straight t)
   #+END_SRC
 * Key bindings
 ** which-key package
@@ -423,3 +436,4 @@
       (when (file-exists-p init_work)
         (load-file init_work)))
   #+END_SRC
+  
