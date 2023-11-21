@@ -26,6 +26,11 @@
 
     (setq recentf-mode t)
     (set-cursor-color "#ff0000")
+
+    ;; Below taken from https://www.emacswiki.org/emacs/BackupDirectory
+    (setq backup-by-copying t ; don't clobber symlinks
+          backup-directory-alist '(("." . "~/.saves/")))
+
 #+END_SRC
 ** Emacs as external editor
 *** GhostText
@@ -249,6 +254,16 @@
       (setq org-roam-v2-ack t)
       :config
       (org-roam-setup))
+  #+END_SRC
+** org-roam-ui
+  #+BEGIN_SRC emacs-lisp
+  (use-package org-roam-ui
+    :straight t
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save nil
+          org-roam-open-on-start nil))
   #+END_SRC
 ** org-sidebar
   #+BEGIN_SRC emacs-lisp
