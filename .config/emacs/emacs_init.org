@@ -445,9 +445,9 @@
 * Additional config
 ** Private
   #+BEGIN_SRC emacs-lisp
-    (let ((init_priv "~/shared/emacs/emacs_init_priv.org"))
+    (let ((init_priv "~/shared/emacs/init_priv.el"))
       (when (file-exists-p init_priv)
-        (org-babel-load-file init_priv)))
+        (load-file init_priv)))
   #+END_SRC
 ** Work
   #+BEGIN_SRC emacs-lisp
