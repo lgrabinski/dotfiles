@@ -321,7 +321,7 @@
      "s" '(:ignore t :which-key "search")
      "sg" '(consult-ripgrep :which-key "ripgrep")
      "sh" '(consult-org-heading :which-key "org-heading")
-     "sr" '(consult-ripgrep "ripgrep")
+     "sr" '(consult-ripgrep :which-key "ripgrep")
      "ss" '(consult-line :which-key "lines")
      "t" '(:ignore t :which-key "toggles/UI")
      "tt" '(consult-theme :which-key "choose theme")
@@ -445,9 +445,9 @@
 * Additional config
 ** Private
   #+BEGIN_SRC emacs-lisp
-    (let ((init_priv "~/shared/emacs/init_priv.el"))
+    (let ((init_priv "~/shared/emacs/emacs_init_priv.org"))
       (when (file-exists-p init_priv)
-        (load-file init_priv)))
+        (org-babel-load-file init_priv)))
   #+END_SRC
 ** Work
   #+BEGIN_SRC emacs-lisp
