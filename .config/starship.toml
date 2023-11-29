@@ -5,8 +5,9 @@
 #$time"""
 
 format = """
-$username @ \ 
-$hostname \
+\\[$os\\]\
+\\[$username@\ 
+$hostname\\]\
 \\[\
 $directory\\]\
 $rust\
@@ -16,8 +17,8 @@ $git_state\
 $git_status\
 $git_metrics\
 $fill\
-$time\
-$battery\
+\\[$time\\]\
+\\[$battery\\]\
 $line_break\
 $shell\
 $character"""
@@ -40,7 +41,7 @@ disabled = false
 [time]
 disabled = false
 format = "[$time]($style)"
-time_format = "wk%V %H:%M:%S  "
+time_format = "wk%V %H:%M:%S"
 #time_format = "%H:%M wk%V" 
 
 [directory]
@@ -56,7 +57,12 @@ format = "[$ssh_symbol$hostname]($style)"
 [battery]
 full_symbol = '♻ '
 charging_symbol = ' '
-discharging_symbol = '🔋 '
+discharging_symbol = '🔋'
 
 [[battery.display]]
 threshold = 100
+
+[os]
+format = "[($name)]($style)"
+style = "bold blue"
+disabled = false
