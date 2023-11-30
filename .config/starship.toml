@@ -63,6 +63,6 @@ discharging_symbol = '🔋'
 threshold = 100
 
 [os]
-format = "[($name)]($style)"
+format = "[$symbol]($style)[$type]($style)"
 style = "bold blue"
 disabled = false
