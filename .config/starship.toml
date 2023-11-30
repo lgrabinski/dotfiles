@@ -66,3 +66,6 @@ threshold = 100
 format = "[$symbol]($style)[$type]($style)"
 style = "bold blue"
 disabled = false
+
+[os.symbols]
+Windows = " "
