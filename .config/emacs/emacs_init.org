@@ -218,6 +218,13 @@
           directory org-agenda-file-regexp))
           '("~/shared/"))))
    #+END_SRC
+*** org-mode task related
+    Inspiration source: [[https://lucidmanager.org/productivity/getting-things-done-with-emacs/]]
+   #+BEGIN_SRC emacs-lisp
+     (setq-default org-todo-keywords
+     	      '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+
+   #+END_SRC
 ** org-babel config
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
