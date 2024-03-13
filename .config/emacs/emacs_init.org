@@ -48,13 +48,14 @@
 * UI - User Interface tweaks
 ** Themes
   #+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :straight t
-    :config
-   (setq doom-themes-enable-bold t
-         doom-enable-italic t))
+    (use-package doom-themes
+      :straight t
+      :config
+     (setq doom-themes-enable-bold t
+           doom-enable-italic t))
 
-   (load-theme 'doom-one t)
+     ;;(load-theme 'doom-one t)
+    (load-theme 'doom-rouge t)
 #+END_SRC
 ** Emacs external packages based
 *** doom-modeline package
@@ -389,6 +390,11 @@
       :straight t
       :hook (dired-mode . all-the-icons-dired-mode))
   #+END_SRC
+*** Peep-dired
+    #+BEGIN_SRC emacs-lisp
+    (use-package peep-dired
+      :straight t)
+    #+END_SRC
 * Development
 ** Magit 
   #+BEGIN_SRC emacs-lisp
