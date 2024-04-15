@@ -1,14 +1,16 @@
-require "options"
-require "plugins"
-require "keymaps"
-require "lualine-config"
-require "orgmode-config"
-require "telescope-config"
-require "dashboard-config"
-require "lspconfig-config"
-require "cmp-config"
-require "nnn-config"
-require "nvim-tree-config"
-require "which-key-config"
--- vim.cmd('colorscheme darkplus')
-vim.cmd('colorscheme palenight')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("options")
+require("plugins")
+require("plugin_config")
