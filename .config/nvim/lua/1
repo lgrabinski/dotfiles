@@ -1,0 +1,12 @@
+require("lualine").setup({
+    options = {
+    
+    },
+    mappings {
+        a = {
+            name = "applications",
+            t = { "<cmd>NvimTreeToggle<cr>", "NvimTree" },
+        },
+    },
+})
+
