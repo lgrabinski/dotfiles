@@ -165,7 +165,7 @@
     ("C-k" . vertico-previous)
     ("C-f" . vertico-exit)))
 #+END_SRC
-** Orderless
+** Orderless package
   #+BEGIN_SRC emacs-lisp
     (use-package orderless
       :straight t
@@ -202,6 +202,16 @@
   	corfu-quit-no-match 'separator)) ;; or t
 #+END_SRC
  
+** embark package
+   #+BEGIN_SRC emacs-lisp
+     (use-package embark
+       :straight t
+       :bind
+       (("C-." . embark-act)
+        ("C-;" . embark-dwim)
+        ("C-h B" . embark-bindings))
+     )
+   #+END_SRC
 * Org-mode
 ** org-mode package
    use-package and init in init.el
@@ -281,6 +291,13 @@
   #+BEGIN_SRC emacs-lisp
   (use-package org-sidebar
     :straight t)
+  #+END_SRC
+** org-download
+  #+BEGIN_SRC emacs-lisp
+    (use-package org-download
+      :straight t
+      :init
+      (add-hook 'dired-mode-hook 'org-download-enable))
   #+END_SRC
 * Key bindings
 ** which-key package
