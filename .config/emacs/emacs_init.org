@@ -467,6 +467,11 @@
   (use-package org-re-reveal
     :straight t)
   #+END_SRC
+** org-tree-slide
+#+BEGIN_SRC emacs-lisp
+  (use-package org-tree-slide
+    :straight t)
+#+END_SRC
 * Tweaks for Windows OS 
   #+BEGIN_SRC emacs-lisp
   (pcase system-type
