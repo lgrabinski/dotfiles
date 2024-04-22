@@ -1,14 +1,7 @@
-require("lualine").setup({
-    options = {
-        icons_enabled =  true,
-        theme = nightfly,
-    },
-    sections = {
-        lualine_a = {
-            {
-                'filename',
-                path = 1,
-            }
-        }
-    }
-})
+return {
+	"nvim-lualine/lualine.nvim",
+	opts = {
+		icons_enabled = true,
+		theme = nightgly,
+	},
+}

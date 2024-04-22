@@ -1,25 +1,29 @@
-require("dashboard").setup ({
-    options = {
-        theme = 'doom',
-        config = {
-            header = {}, -- your header
-            center = {
-                {
-                    icon = 'A ',
-                    icon_hl = 'Title',
-                    desc = 'Find File ',
-                    desc_hl = 'String',
-                    key = 'b',
-                    keymap = 'SPC f f',
-                    key_hl = 'Number',
-                    key_format = ' %s', -- remove default surronding
-                    action = 'lua print(2)'
-                },
-            },
-            footer = {} -- your footer
+return {
+  'nvimdev/dashboard-nvim',
+  event = 'VimEnter',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+  },
+  config = function()
+    require('dashboard').setup {
+      theme = 'doom',
+      hide = {
+        statusline = false,
+      },
+      config = {
+        center = {
+          {
+            icon = '',
+            icon_hl = 'group',
+            desc = 'description',
+            desc_hl = 'group',
+            key = 'shortcut key in dashboard buffer not keymap !!',
+            key_hl = 'group',
+            action = '',
+          },
         },
-    },
-})
-    
-
-
+        footer = {},
+      }
+    }
+  end,
+}

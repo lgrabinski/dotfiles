@@ -1,14 +1,12 @@
-require("nvim-tree").setup({
-    sort_by = "case_sensitive",
-    view = {
-        width = 40,
-    },
-    renderer = {
-        group_empty = true,
-    },
-    filters = {
-        dotfiles = true,
-    },
-})
-
-
+return {
+	"nvim-neo-tree/neo-tree.nvim",
+	branch = "v3.x",
+	dependencies = { 
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons", -- not strictly needed, but recommended
+		"MunifTanjim/nui.nvim",
+	},
+  config = function()
+    vim.keymap.set('n', '<leader>at', ':Neotree<CR>', {})
+  end
+}
