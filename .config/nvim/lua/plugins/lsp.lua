@@ -34,6 +34,7 @@ return {
         vim.keymap.set('n', keys, func, { buffer =  event.buf, desc = 'LSP: ' .. desc })
       end
       map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+      map('K', vim.lsp.buf.hover, 'Hover Documentation')
     end
       })
 end
