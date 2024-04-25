@@ -20,9 +20,13 @@
     ;; font face base on platform type
     (pcase system-type
      ((or 'gnu/linux 'cygwin)
-      (set-face-attribute 'default nil :font "Fira Code Retina" :height 85))
+      ;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 85)
+      (set-face-attribute 'default nil :font "IosevkaTerm Nerd Font" :height 80 :weight 'normal)
+      )
      ('windows-nt
-      (set-face-attribute 'default nil :font "Fira Code Retina" :height 100)))
+      ;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 100)
+      (set-face-attribute 'default nil :font "IosevkaTerm Nerd Font" :height 100 :weight 'normal)
+      ))
 
     (setq recentf-mode t)
     (set-cursor-color "#ff0000")
@@ -126,6 +130,11 @@
      :straight t
      :commands emojify-mode)
    #+END_SRC
+** org-modern
+  #+BEGIN_SRC emacs-lisp
+    (use-package org-modern
+      :straight t)
+  #+END_SRC
 * Evil-mode related
 ** evil package  
 #+BEGIN_SRC emacs-lisp
@@ -299,6 +308,16 @@
       :init
       (add-hook 'dired-mode-hook 'org-download-enable))
   #+END_SRC
+** export settings
+   #+BEGIN_SRC emacs-lisp
+     (setq
+           org-export-with-sub-superscripts nil
+           org-export-with-toc t)
+   #+END_SRC
+*** HTML specific
+   #+BEGIN_SRC emacs-lisp
+   ()
+   #+END_SRC
 * Key bindings
 ** which-key package
 #+BEGIN_SRC emacs-lisp
@@ -448,19 +467,30 @@
      :after (org-mode)
    )
    #+END_SRC
-** Programming Languages
-*** LSP - Language Server Protocol
+** Lua
+   #+BEGIN_SRC emacs-lisp
+     (use-package lua-mode
+       :straight t)
+   #+END_SRC
+** LSP - Language Server Protocol
 **** lsp-mode
    #+BEGIN_SRC emacs-lisp
      (use-package lsp-mode
        :straight t
-       :commands (lsp ls-deferred)
        :init
-       (setq lsp-keymap-prefix "C-c l")
-       :config
-       (lsp-enable-which-key-integration t))
+       (setq lsp-auto-guess-root nil)
+       :hook
+       (rust-mode . lsp)
+       (yang-mode . lsp)
+       (lsp-mode . lsp-enable-which-key-integration)
+       :commands lsp)
    #+END_SRC
-*** 
+**** lsp-ui
+    #+BEGIN_SRC emacs-lisp
+    (use-package lsp-ui
+      :straight t
+    )
+    #+END_SRC
 * Presentation
 ** org-re-reveal
   #+BEGIN_SRC emacs-lisp
