@@ -21,11 +21,13 @@
     (pcase system-type
      ((or 'gnu/linux 'cygwin)
       ;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 85)
-      (set-face-attribute 'default nil :font "IosevkaTerm Nerd Font" :height 80 :weight 'normal)
+      ;;(set-face-attribute 'default nil :font "IosevkaTerm Nerd Font" :height 80 :weight 'medium)
+      ;;(set-face-attribute 'default nil :font "Iosevka Nerd Font Mono" :height 85 :weight 'normal)
+      (set-face-attribute 'default nil :font "Hack Nerd Font" :height 90 :weight 'normal)
       )
      ('windows-nt
       ;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 100)
-      (set-face-attribute 'default nil :font "IosevkaTerm Nerd Font" :height 100 :weight 'normal)
+      (set-face-attribute 'default nil :font "Hack Nerd Font" :height 110 :weight 'semibold)
       ))
 
     (setq recentf-mode t)
@@ -499,8 +501,31 @@
   #+END_SRC
 ** org-tree-slide
 #+BEGIN_SRC emacs-lisp
+  (defun lg/presentation-start ()
+    (beacon-mode 0)
+    (message "debug")
+    (setq text-scale-mode-amount 3)
+    (setq org-display-inline-images t)
+    (text-scale-mode 1))
+
+    (defun lg/presentation-stop ()
+      (becon-mode 1)
+      (test-scale-mode 0)
+      (setq org-display-inline-images nil))
+
   (use-package org-tree-slide
-    :straight t)
+    :straight t
+    :hook (
+  	 (org-tree-slide-mode . lg/presentation-start)
+  	 (org-tree-slide--stop . lg/presentation-stop)
+    )
+    :after org
+    :config
+    (setq org-tree-slide-breadcrumbs " >> ")
+    (setq org-tree-slide-activate-message "Presentation started")
+    (setq org-tree-slide-deactivate-message "Presentation ended")
+    (setq org-tree-slide-header t)
+    )
 #+END_SRC
 * Tweaks for Windows OS 
   #+BEGIN_SRC emacs-lisp
