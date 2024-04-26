@@ -27,7 +27,7 @@
       )
      ('windows-nt
       ;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 100)
-      (set-face-attribute 'default nil :font "Hack Nerd Font" :height 110 :weight 'semibold)
+      (set-face-attribute 'default nil :font "Hack Nerd Font" :height 110 :weight 'normal)
       ))
 
     (setq recentf-mode t)
