@@ -60,8 +60,11 @@
      (setq doom-themes-enable-bold t
            doom-enable-italic t))
 
+    (use-package catppuccin-theme
+      :straight t)
      ;;(load-theme 'doom-one t)
-    (load-theme 'doom-rouge t)
+     ;;(load-theme 'doom-rouge t)
+     (load-theme 'catppuccin t)
 #+END_SRC
 ** Emacs external packages based
 *** doom-modeline package
@@ -164,6 +167,16 @@
     (use-package undo-fu
       :straight t)
   #+END_SRC
+** evil-org
+   #+BEGIN_SRC emacs-lisp
+     (use-package evil-org
+       :straight t
+       :after org
+       :hook (org-mode . (lambda () evil-org-mode))
+       :config
+       (require 'evil-org-agenda)
+       (evil-org-agenda-set-keys))
+   #+END_SRC
 * Incremental completion, searching, selecting and narrowing
 ** vertico package
 #+BEGIN_SRC emacs-lisp
@@ -257,6 +270,7 @@
          (ditaa . t)
          (latex . t)
          ;;(rust . t)
+         ;;(mermaid . t)
          (dot . t)
    ))
    (setq org-confirm-babel-evaluate nil)
@@ -320,6 +334,11 @@
    #+BEGIN_SRC emacs-lisp
    ()
    #+END_SRC
+** ob-mermaid
+  #+BEGIN_SRC emacs-lisp
+;;    (use-package ob-mermaid
+  ;;    :straight t)
+  #+END_SRC
 * Key bindings
 ** which-key package
 #+BEGIN_SRC emacs-lisp
@@ -502,8 +521,8 @@
 ** org-tree-slide
 #+BEGIN_SRC emacs-lisp
   (defun lg/presentation-start ()
+    (message "Debug!")
     (beacon-mode 0)
-    (message "debug")
     (setq text-scale-mode-amount 3)
     (setq org-display-inline-images t)
     (text-scale-mode 1))
@@ -515,10 +534,7 @@
 
   (use-package org-tree-slide
     :straight t
-    :hook (
-  	 (org-tree-slide-mode . lg/presentation-start)
-  	 (org-tree-slide--stop . lg/presentation-stop)
-    )
+    :hook (org-tree-slide-mode . lg/presentation-start)
     :after org
     :config
     (setq org-tree-slide-breadcrumbs " >> ")
