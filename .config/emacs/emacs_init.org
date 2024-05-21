@@ -63,8 +63,9 @@
     (use-package catppuccin-theme
       :straight t)
      ;;(load-theme 'doom-one t)
-     (load-theme 'doom-rouge t)
+     ;;(load-theme 'doom-rouge t)
      ;;(load-theme 'catppuccin t)
+     (load-theme 'doom-vibrant t)
 #+END_SRC
 ** Emacs external packages based
 *** doom-modeline package
