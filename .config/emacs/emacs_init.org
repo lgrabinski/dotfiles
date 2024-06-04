@@ -30,7 +30,15 @@
       (set-face-attribute 'default nil :font "Hack Nerd Font" :height 110 :weight 'normal)
       ))
 
-    (setq recentf-mode t)
+    ;(setq recentf-mode t)
+    (use-package recentf
+      :init
+      (setq recentf-save-file "~/.cache/emacs/recentf"
+    	recentf-max-saved-items 10000
+    	recentf-max-menu-items 5000)
+      (recentf-mode 1)
+      (run-at-time nil (* 5 60) 'recentf-save-list))
+
     (set-cursor-color "#ff0000")
 
     ;; Below taken from https://www.emacswiki.org/emacs/BackupDirectory
