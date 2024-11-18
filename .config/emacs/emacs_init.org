@@ -73,8 +73,9 @@
      ;;(load-theme 'doom-one t)
      ;;(load-theme 'doom-rouge t)
      ;;(load-theme 'catppuccin t)
-     (load-theme 'doom-vibrant t)
-#+END_SRC
+     ;;(load-theme 'doom-vibrant t)
+     (load-theme 'doom-ayu-dark t)
+   #+END_SRC
 ** Emacs external packages based
 *** doom-modeline package
 #+BEGIN_SRC emacs-lisp
